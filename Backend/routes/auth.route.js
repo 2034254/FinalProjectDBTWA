@@ -8,4 +8,8 @@ router.get('/', (req, res) => {
     })
 });
 
+router.post('/register', (req, res) => {
+
+});
+
 module.exports = router;
