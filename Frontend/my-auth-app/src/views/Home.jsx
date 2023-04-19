@@ -34,27 +34,27 @@ function Home() {
             <h1>Home</h1>
             Welcome {username}. You are logged in!
             {isAdmin? 'You are an admin btw.':''}
-            <nav className='topbar'>
+            <nav className='navbar navbar-default topnav'>
                 <label>Data Explorer</label>
                 <div className='container-left'> 
-                    <h2>C02</h2>
-                    <ul>
-                        <li>CO2</li>
-                        <li>All GHGs</li>
-                        <li>Methane</li>
-                        <li>Nitrous Oxide</li>
+                    <h2>Gas or Warming</h2>
+                    <ul className='nav navbar-nav'>
+                        <li className='active'><a href='#'>CO2</a></li>
+                        <li><a href='#'>All GHGs</a></li>
+                        <li><a href='#'>Methane</a></li>
+                        <li><a href='#'>Nitrous Oxide</a></li>
                     </ul>
                 </div>
-                <dir className='container-right'>
-                    <h2>Per capita</h2>
-                    <ul>
-                        <li>Per capita</li>
-                        <li>Per country</li>
-                        <li>Cumulative</li>
-                        <li>Per MWh of Energy</li>
-                        <li>Per $ of GDP</li>
+                <div className='container-right'>
+                    <h2>Count</h2>
+                    <ul className='nav navbar-nav'>
+                        <li className='active'><a href=''>Per capita</a></li>
+                        <li><a href=''>Per country</a></li>
+                        <li><a href=''>Cumulative</a></li>
+                        <li><a href=''>Per MWh of Energy</a></li>
+                        <li><a href=''>Per $ of GDP</a></li>
                     </ul>
-                </dir>
+                </div>
             </nav>
             <nav className='sidebar'>
                 <ul>
