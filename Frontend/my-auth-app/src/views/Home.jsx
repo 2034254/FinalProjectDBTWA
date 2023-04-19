@@ -36,7 +36,7 @@ function Home() {
             {isAdmin? 'You are an admin btw.':''}
             <nav className='topbar'>
                 <label>Data Explorer</label>
-                <div className='container-left'>
+                <div className='container-left'> 
                     <h2>C02</h2>
                     <ul>
                         <li>CO2</li>
