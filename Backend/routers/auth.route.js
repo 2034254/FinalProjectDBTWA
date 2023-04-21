@@ -105,8 +105,42 @@ router.post('/register', async (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
-    
+router.post('/login', async (req, res) => {
+    const body = req.body;
+
+    if (!body.username || !body.password) {
+        res.status(400).send({
+            message: 'Missing email or password.'
+        });
+
+        return
+    }
+
+    const user = await collection.findOne({ username: body.username });
+
+    console.log(user);
+    if (!user) {
+            res.status(404).send({
+                message: 'Invalid email or password.'
+            });
+
+            return
+        }
+
+    const verify = await bcrypt.compare(body.password, user.password);
+
+    const payload = {
+            email: user.email,
+            country: user.country
+        };
+
+    const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "12h" });
+
+
+    res.status(200).send({
+        message: 'Success.',
+        token: token
+    })
 });
 
 module.exports = router;
