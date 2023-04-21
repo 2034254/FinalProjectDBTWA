@@ -1,11 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const { standardAuth } = require('./middleware/auth.middleware');
 
-const authRouter = require('./routes/auth.route');
+const { standardAuth } = require('./middlewares/auth.middleware');
+
+const authRouter = require('./routers/auth.route');
 
 const app = express();
 
