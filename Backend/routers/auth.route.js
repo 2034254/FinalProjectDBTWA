@@ -118,7 +118,6 @@ router.post('/login', async (req, res) => {
 
     const user = await collection.findOne({ username: body.username });
 
-    console.log(user);
     if (!user) {
             res.status(404).send({
                 message: 'Invalid email or password.'
@@ -130,17 +129,17 @@ router.post('/login', async (req, res) => {
     const verify = await bcrypt.compare(body.password, user.password);
 
     const payload = {
-            email: user.email,
-            country: user.country
-        };
+        username: user.username,        
+        email: user.email,
+        dob: user.dob
+    };
 
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "12h" });
-
 
     res.status(200).send({
         message: 'Success.',
         token: token
-    })
+    });
 });
 
 module.exports = router;
