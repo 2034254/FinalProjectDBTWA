@@ -34,10 +34,12 @@ with plt.style.context('Solarize_Light2'):
       xlabel='Date',
       ylabel='Billion Tonnes of Nitrous Oxide',
       ylim=(0,None),
-      title='''Nitrous oxide emissions by country per year (1850 - 2021)'''
+      title='''Nitrous Oxide Emissions by Country per Year (1850 - 2021)'''
   )
 
   axs.set_xlim(df_nitrous_final['Year'].min(), df_nitrous_final['Year'].max())
+
+  plt.xticks(range(1850, 2021, 25), range(1850, 2021, 25))
 
   plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title="")
   #plt.legend(title='')

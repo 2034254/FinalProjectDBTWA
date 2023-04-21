@@ -39,9 +39,11 @@ with plt.style.context('Solarize_Light2'):
         xlabel='Date',
         ylabel='Billion Tonnes of CO₂',
         ylim=(0,None),
-        title='''CO₂ Emissions by country per year (1750 - 2021)'''
+        title='''CO₂ Emissions by Country per Year (1750 - 2021)'''
     )
     axs.set_xlim(df_co2_final['Year'].min(), df_co2_final['Year'].max())
+    
+    plt.xticks(range(1750, 2021, 30), range(1750, 2021, 30))
 
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title="")
     #plt.legend(title='')
