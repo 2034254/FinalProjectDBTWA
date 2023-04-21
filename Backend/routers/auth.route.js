@@ -27,7 +27,7 @@ function ValidatePassword(password) {
 router.post('/register', async (req, res) => {
     const body = req.body;
 
-    if (!body.username || !body.email || !body.password || !body.confirmPassword || body.username === '' || body.email === '' || body.password === '' || body.confirmPassword !== '' || body.acceptsTermsAndCoditions === false) {
+    if (/*!body.username || !body.email || !body.password || !body.confirmPassword ||*/ body.username === '' || body.email === '' || body.password === '' || body.confirmPassword !== '' || body.acceptsTermsAndCoditions === false) {
         res.status(400);
         res.send({
           message: "Please fill all fields and accept Terms and Conditions.",
@@ -99,7 +99,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-
+    
 });
 
 module.exports = router;
