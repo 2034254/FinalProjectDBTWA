@@ -24,17 +24,22 @@ function ValidatePassword(password) {
     return passwordRegex.test(password)
   }
 
+
 router.post('/register', async (req, res) => {
     const body = req.body;
 
-    if (/*!body.username || !body.email || !body.password || !body.confirmPassword ||*/ body.username === '' || body.email === '' || body.password === '' || body.confirmPassword !== '' || body.acceptsTermsAndCoditions === false) {
-        res.status(400);
-        res.send({
-          message: "Please fill all fields and accept Terms and Conditions.",
-          body
+    if (!body.username || !body.email || !body.password || !body.confirmPassword || body.username === '' || body.email === '' || body.password === '') {
+        res.status(400).send({
+            message: "Please fill all fields."
         });
-        
-        return;
+    }
+
+    if (body.acceptsTermsAndCoditions === false) {
+        res.status(400).send({
+            message: 'You must accept terms and conditions.'
+        });
+
+        return
     }
 
     const email = await collection.findOne({
@@ -72,24 +77,27 @@ router.post('/register', async (req, res) => {
     }
 
     if (!ValidatePassword(body.password)) {
-        res.status(400);
-        res.send({
+        res.status(400).send({
           message: "The password must have a minimum of 8 characters and contain upper and lower case letters",
         });
-        return;
+        return
+    }
+
+    if (body.password !== body.confirmPassword) {
+        res.status(400).send({
+            message: 'Passwords don\'t match'
+        });
+        return
     }
 
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(body.password, salt);
 
     const result = await collection.insertOne({
-
         username: body.username,
         email: body.email,
         password: passwordHash,
-        dob: body.dob,
-        acceptsTermsAndCoditions: body.acceptsTermsAndCoditions
-    
+        dob: body.dob,    
     });
 
     res.status(201).send({
