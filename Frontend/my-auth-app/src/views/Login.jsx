@@ -40,7 +40,7 @@ function Login() {
             const data= await response.json()
             console.log('data: ', data);
 
-            const token = data.accessToken;
+            const token = data.token;
             localStorage.setItem('token', token);
 
             const toastOptions = {
