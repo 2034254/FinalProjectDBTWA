@@ -47,7 +47,7 @@ router.post('/register', async (req, res) => {
     });
 
     if (email) {
-        res.status(400).send({
+        res.status(409).send({
             message: 'Email already in use.'
         });
 
@@ -69,7 +69,7 @@ router.post('/register', async (req, res) => {
     });
 
     if (username) {
-        res.status(400).send({
+        res.status(409).send({
             message: 'Username already in use.'
         });
 
@@ -78,7 +78,7 @@ router.post('/register', async (req, res) => {
 
     if (!ValidatePassword(body.password)) {
         res.status(400).send({
-          message: "The password must have a minimum of 8 characters and contain upper and lower case letters",
+          message: "The password must have a minimum of 8 characters and contain upper and lower case letters.",
         });
         return
     }
@@ -101,8 +101,7 @@ router.post('/register', async (req, res) => {
     });
 
     res.status(201).send({
-        status: 'Success.',
-        result
+        message: 'Success.'
     });
 });
 
