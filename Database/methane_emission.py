@@ -3,7 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-df_methane = pd.read_csv('./methane-emissions.csv')
+df_methane = pd.read_csv('./CSV/methane-emissions.csv')
 
 countries_array = ['Russia', 'China', 'United States', 'Canada', 'World']
 
@@ -42,4 +42,4 @@ with plt.style.context('Solarize_Light2'):
   plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title="")
   #plt.legend(title='')
 
-  fig.savefig('methane_emission.png', bbox_inches='tight')
+  fig.savefig('./Pictures/methane_emission.png', bbox_inches='tight')
