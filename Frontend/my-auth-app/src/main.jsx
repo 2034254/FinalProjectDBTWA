@@ -4,6 +4,7 @@ import App from './App'
 import Login from './views/Login'
 import Register from './views/Register'
 import Home from './views/Home'
+import Graph from './views/Graph'
 import './index.css'
 // Import Bootstrap
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path='/Login' element={<Login />} />
       <Route path='/Register' element={<Register />} />
       <Route path='/Home' element={<Home />} />
+      <Route path='/Graph' element={<Graph />} />
     </Routes>
   </BrowserRouter>
 )
