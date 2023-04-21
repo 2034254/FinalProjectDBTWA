@@ -34,25 +34,31 @@ function Home() {
             <h1>Home</h1>
             Welcome {username}. You are logged in!
             {isAdmin? 'You are an admin btw.':''}
-            <nav className='navbar navbar-default topnav'>
+            <nav className='navbar navbar-dark bg-dark topnav'>
                 <label>Data Explorer</label>
-                <div className='container-left'> 
+                <div className='btn-group'>
                     <h2>Gas or Warming</h2>
-                    <ul className='nav navbar-nav'>
-                        <li className='active'><a href='#'>CO2</a></li>
-                        <li><a href='#'>All GHGs</a></li>
-                        <li><a href='#'>Methane</a></li>
-                        <li><a href='#'>Nitrous Oxide</a></li>
+                    <button className='btn btn-secondary dropdown-toggle' type='button' id='defaultDropdown' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+                        C02    
+                    </button>
+                    <ul className='dropdown-menu' aria-labelledby='defaultDropdown'>
+                        <li><a className='dropdown-item' href='#'>C02</a></li>
+                        <li><a className='dropdown-item' href='#'>All GHGs</a></li>
+                        <li><a className='dropdown-item' href='#'>Methane</a></li>
+                        <li><a className='dropdown-item' href='#'>Nitrous Oxide</a></li>
                     </ul>
                 </div>
-                <div className='container-right'>
+                <div className='btn-group'>
                     <h2>Count</h2>
-                    <ul className='nav navbar-nav'>
-                        <li className='active'><a href=''>Per capita</a></li>
-                        <li><a href=''>Per country</a></li>
-                        <li><a href=''>Cumulative</a></li>
-                        <li><a href=''>Per MWh of Energy</a></li>
-                        <li><a href=''>Per $ of GDP</a></li>
+                    <button className='btn btn-secondary dropdown-toggle' type='button' id='defaultDropdown' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+                        Per capita
+                    </button>
+                    <ul className='dropdown-menu' aria-labelledby='defaultDropdown'>
+                        <li><a className='dropdown-item' href='#'>Per capita</a></li>
+                        <li><a className='dropdown-item' href='#'>Per country</a></li>
+                        <li><a className='dropdown-item' href='#'>Cumulative</a></li>
+                        <li><a className='dropdown-item' href='#'>Per MWh of Energy</a></li>
+                        <li><a className='dropdown-item' href='#'>Per $ of GDP</a></li>
                     </ul>
                 </div>
             </nav>
