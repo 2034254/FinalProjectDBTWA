@@ -65,7 +65,7 @@ router.post('/register', async (req, res) => {
             username: body.username,
             email: body.email,
             password: passwordHash,
-            dateOfBirth: body.dateOfBirth,
+            dob: body.dob,
             acceptsTermsAndCoditions: body.acceptsTermsAndCoditions
         
         });

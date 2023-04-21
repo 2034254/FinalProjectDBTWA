@@ -34,37 +34,29 @@ function Register() {
         console.log(form);
         e.preventDefault();
 
+        const registerURL = 'http://localhost:8080/auth/register';
+        const options = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(form)
+        }
+        const response = await fetch(registerURL, options);
+        console.log('response.status: ', response.status);
+
         if(form.password !== form.confirmPassword) {
             toast.error("Password don't match", toastOptions);
             return;
         }
 
-        if(!validatePassword(form.password)) {
+        /*if(!validatePassword(form.password)) {
             toast.error("Password don't match the criterias", toastOptions);
             return;
-        }
+        }*/
             
         toast("Wow, so easy!", toastOptions);
     };
-
-    function validatePassword(password) {
-        const lengthRegex = /[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]{8}[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]*/;
-        const lengthTest = lengthRegex.test(password); // true/false
-
-        const upperRegex = /A-Z/
-        const upperTest = upperRegex.test(password);
-
-        const lowerRegex = /a-z/
-        const lowerTest = lowerRegex.test(password);
-
-        const numbersRegex = /\d/
-        const numbersTest = numbersRegex.test(password);
-
-        const specialRegex = /[!#$%&'*+\/=?^_`{|}~-]/
-        const specialTest = specialRegex.test(password);
-
-        return lengthTest && upperTest && lowerTest && numbersTest && specialTest;
-    }
 
     return(
         <div>
