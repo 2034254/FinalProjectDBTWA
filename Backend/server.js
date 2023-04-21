@@ -6,9 +6,9 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 
-const { standardAuth } = require('./middleware/auth.middleware');
+const { standardAuth } = require('./middlewares/auth.middleware');
 
-const authRouter = require('./routes/auth.route');
+const authRouter = require('./routers/auth.route');
 
 const app = express();
 
