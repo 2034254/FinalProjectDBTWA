@@ -43,19 +43,15 @@ function Register() {
             body: JSON.stringify(form)
         }
         const response = await fetch(registerURL, options);
-        console.log('response.status: ', response.status);
+        const responseBody = await response.json();
 
-        if(form.password !== form.confirmPassword) {
-            toast.error("Password don't match", toastOptions);
-            return;
+        if (responseBody.message === 'Success.') {
+            toast.success("Success", toastOptions);
+        } else {
+            console.log('Error message:', responseBody.message);
+        
+            toast.error(responseBody.message, toastOptions);
         }
-
-        /*if(!validatePassword(form.password)) {
-            toast.error("Password don't match the criterias", toastOptions);
-            return;
-        }*/
-            
-        toast("Wow, so easy!", toastOptions);
     };
 
     return(
