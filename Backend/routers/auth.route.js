@@ -128,6 +128,14 @@ router.post('/login', async (req, res) => {
 
     const verify = await bcrypt.compare(body.password, user.password);
 
+    if (!verify) {
+        res.status(404).send({
+            message: 'Invalid email or password.'
+        });
+
+        return
+    }
+
     const payload = {
         username: user.username,        
         email: user.email,
