@@ -20,12 +20,13 @@ function App() {
     console.log('response.status: ', response.status);
 
     if(response.status == 200) {
-        const data= await response.json()
-        console.log('data: ', data);
+      const blob = await response.blob();
+      const imgUrl = URL.createObjectURL(blob);
+      console.log('imgUrl: ', imgUrl);
 
-        //const token = data.token;
-        //localStorage.setItem('token', token);
-
+      const img = new Image();
+      img.src = imgUrl;
+      document.body.appendChild(img);
         const toastOptions = {
             position: "top-right",
             autoClose: 5000,
