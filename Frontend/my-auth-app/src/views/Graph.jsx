@@ -11,6 +11,29 @@ function Graph() {
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
+    const handleImage = async (e) => {
+        e.preventDefault();
+    
+        const loginURL = 'http://localhost:8080/file/file';
+        const options = {
+            method: 'GET',
+            
+        }
+        const response = await fetch(loginURL, options);
+        console.log('response.status: ', response.status);
+    
+        if(response.status == 200) {
+          const blob = await response.blob();
+          const imgUrl = URL.createObjectURL(blob);
+          console.log('imgUrl: ', imgUrl);
+    
+          const img = new Image();
+          img.src = imgUrl;
+          document.body.appendChild(img);
+        }
+    }
+
+
     // On component load -> check auth
     useEffect(() => {
         // Verify auth
@@ -32,8 +55,11 @@ function Graph() {
     return(
         <div>
             <h1>Home</h1>
-            Welcome {username}. You are logged in!
-            {isAdmin? 'You are an admin btw.':''}
+            <button className='btn btn-success'  onClick={handleImage}>
+          
+            MAPA
+        </button>
+            
             <nav className='navbar navbar-dark bg-dark topnav'>
                 <label>Data Explorer</label>
                 <div className='btn-group'>
@@ -41,6 +67,7 @@ function Graph() {
                     <button className='btn btn-secondary dropdown-toggle' type='button' id='defaultDropdown' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
                         C02    
                     </button>
+                    
                     <ul className='dropdown-menu' aria-labelledby='defaultDropdown'>
                         <li><a className='dropdown-item' href='#'>C02</a></li>
                         <li><a className='dropdown-item' href='#'>All GHGs</a></li>
