@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
 
-df_co2 = pd.read_csv("./CSV/annual-co2-emissions-per-country.csv")
+df_co2 = pd.read_csv("../Database/CSV/annual-co2-emissions-per-country.csv")
 
 countries_array = ['Russia', 'China', 'United States', 'Canada', 'World']
 
@@ -48,4 +48,4 @@ with plt.style.context('Solarize_Light2'):
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title="")
     #plt.legend(title='')
     
-    fig.savefig('./Pictures/co2_emission.png', bbox_inches='tight')
+    fig.savefig('../Database/Pictures/co2_emission.png', bbox_inches='tight')

@@ -7,6 +7,59 @@ import { Link } from 'react-router-dom'
 function App() {
   const [count, setCount] = useState(0)
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const loginURL = 'http://localhost:8080/file/file';
+    const options = {
+        method: 'GET',
+        
+    }
+    const response = await fetch(loginURL, options);
+    console.log('response.status: ', response.status);
+
+    if(response.status == 200) {
+      const blob = await response.blob();
+      const imgUrl = URL.createObjectURL(blob);
+      console.log('imgUrl: ', imgUrl);
+
+      const img = new Image();
+      img.src = imgUrl;
+      document.body.appendChild(img);
+        const toastOptions = {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        }
+        toast("Login successful!", toastOptions);
+        setTimeout(() => {
+            navigate('/home') //navigate to home after after 2 seconds
+        }, 2000)
+    } else {
+        const toastOptions = {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        }
+        toast.error("Login failed!", toastOptions);
+        setTimeout(() => {
+            navigate('/home') //navigate to home after after 2 seconds
+        }, 2000)
+    }
+};
+
+
   return (
     <div className="App">
       <div>
@@ -23,6 +76,10 @@ function App() {
           <Link to='/login'>
             Login
           </Link>
+        </button>
+        <button className='btn btn-success'  onClick={handleSubmit}>
+          
+            MAPA
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
