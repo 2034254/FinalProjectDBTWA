@@ -19,7 +19,7 @@ router.get('/file',async (req, res) => {
     try {
         const { stdout } = await exec('python ../Database/co2_emission.py');
         console.log(stdout);
-        const imagePath = path.join('C:/Users/le0679993/Downloads/Final Projects/DB WTA/FinalProjectDBTWA/Database/Pictures/co2_emission.png');
+        const imagePath = path.join(__dirname, '../../Database/Pictures/co2_emission.png');
   
         res.status(200).sendFile(imagePath);
 
