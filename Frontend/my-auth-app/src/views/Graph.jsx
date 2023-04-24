@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { useState } from 'react';
 import './Graph.css';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 function Graph() {
 
@@ -11,6 +12,11 @@ function Graph() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [xyz, setImage] = useState("");
     const navigate = useNavigate();
+    const [selectedOption, setSelectedOption] = useState('C02');
+
+    const handleSelect = (eventKey) => {
+        setSelectedOption(eventKey);
+    };
 
     const handleImage = async (e) => {
         e.preventDefault();
@@ -63,17 +69,14 @@ function Graph() {
         <div className="container-flex">
             <div className="row my-2">
                 <div className="col">
-                    <div className='btn-group buttonDropdown'>
-                        <button className='btn btn-secondary dropdown-toggle' type='button' id='defaultDropdown' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
-                            C02    
-                        </button>
-                        <ul className='dropdown-menu' aria-labelledby='defaultDropdown'>
-                            <li><a className='dropdown-item' href='#'>C02</a></li>
-                            <li><a className='dropdown-item' href='#'>All GHGs</a></li>
-                            <li><a className='dropdown-item' href='#'>Methane</a></li>
-                            <li><a className='dropdown-item' href='#'>Nitrous Oxide</a></li>
-                        </ul>
-                    </div>
+                    <Dropdown onSelect={handleSelect} class='buttonDropdown'>
+                        <DropdownButton id="dropdown-basic-button" title={selectedOption}>
+                            <Dropdown.Item eventKey="C02">C02</Dropdown.Item>
+                            <Dropdown.Item eventKey="All GHGs">All GHGs</Dropdown.Item>
+                            <Dropdown.Item eventKey="Methane">Methane</Dropdown.Item>
+                            <Dropdown.Item eventKey="Nitrous Oxide">Nitrous Oxide</Dropdown.Item>
+                        </DropdownButton>
+                    </Dropdown>
                 </div>
                 <div className="col order-5 d-flex">
                     <div className="form-check align-self-center">
