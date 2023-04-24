@@ -69,9 +69,6 @@ function Login() {
                 theme: "light",
             }
             toast.error("Login failed!", toastOptions);
-            setTimeout(() => {
-                navigate('/home') //navigate to home after after 2 seconds
-            }, 2000)
         }
     };
 
