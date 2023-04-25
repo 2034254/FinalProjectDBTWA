@@ -18,7 +18,6 @@ function Login() {
     function handleInputChange(key, newValue) {
         form[key] = newValue;   // ex: form["username"] = "toto";
         setForm(form);
-        console.log(form);
     }
 
     const handleSubmit = async (e) => {
