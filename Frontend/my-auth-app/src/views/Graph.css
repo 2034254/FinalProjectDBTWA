@@ -1,6 +1,6 @@
-  .buttonDropdown {
-    min-width: 200px;
-  }
+.buttonDropdown {
+  min-width: 200px;
+}
 
   .regularButton {
     min-width: 150px;
@@ -15,7 +15,15 @@
     margin: 0px;
     min-height: 35px;
     min-width: 75px;
+    display: flex;
+    align-items: center;
   }
+
+  .checkBoxHigh input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  
 
   .container {
     width: 100%;
@@ -23,4 +31,20 @@
 
   .imageSize {
     max-width: 100%;
+  }
+  .custom-dropdown {
+    width: 200px;
+  }
+  
+  .container-flex{ 
+    width: 100%;
+  }
+
+  #root{
+    width: 100%;
+  
+  }
+  body{
+    width: 100%;
+   
   }
