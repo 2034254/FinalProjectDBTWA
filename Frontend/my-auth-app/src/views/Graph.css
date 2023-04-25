@@ -1,53 +1,26 @@
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #eee;
-    padding: 20px;
-    box-sizing: border-box;
+  .buttonDropdown {
+    min-width: 200px;
   }
-    
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+  .regularButton {
+    min-width: 150px;
   }
-  
-  nav label {
-    font-weight: bold;
+
+  ul li {
+    list-style-type: none;
+    text-align: left;
   }
-  
-  nav li {
-    margin-bottom: 10px;
+
+  .checkBoxHigh {
+    margin: 0px;
+    min-height: 35px;
+    min-width: 75px;
   }
-    
-  .topnav {
-    background-color: #333;
-    overflow: hidden;
+
+  .container {
+    width: 100%;
   }
-  
-  .topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .topnav a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
-  
-  .topnav .icon {
-    display: none;
+
+  .imageSize {
+    max-width: 100%;
   }
