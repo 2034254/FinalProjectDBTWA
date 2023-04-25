@@ -1,0 +1,1943 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 1,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "id": "cU58wTRZoEHw"
+   },
+   "outputs": [],
+   "source": [
+    "# All imports\n",
+    "#from google.colab import drive\n",
+    "import pandas as pd\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "#from google.colab import files"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "lyo-NuGkoa-5",
+    "outputId": "abb298d2-7ee7-4607-863a-5c36a934ee5b"
+   },
+   "outputs": [],
+   "source": [
+    "# Mount drive\n",
+    "#drive.mount('/content/drive/')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "CMb-nPV182De"
+   },
+   "outputs": [],
+   "source": [
+    "%pip install redshift_connector\n",
+    "import redshift_connector\n",
+    "conn = redshift_connector.connect(\n",
+    "     host='redshift-cluster-1.cigoy313aggq.us-east-1.redshift.amazonaws.com',\n",
+    "     database='dev',\n",
+    "     port=5439,\n",
+    "     user='awsuser',\n",
+    "     password='Winter2023'\n",
+    "  )\n",
+    "\n",
+    "\n",
+    "# Create a Cursor object\n",
+    "cursor = conn.cursor()\n",
+    "\n",
+    "\n",
+    "\n",
+    "# Query a table using the Cursor\n",
+    "cursor.execute(\"select * from book\")\n",
+    "                \n",
+    "#Retrieve the query result set\n",
+    "result: tuple = cursor.fetchall()\n",
+    "print(result)\n",
+    "#(['One Hundred Years of Solitude', 'Gabriel García Márquez'], ['A Brief History of Time', 'Stephen Hawking'])\n",
+    "                \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 2,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "93KZTSyJ-Gay",
+    "outputId": "e8078f54-3339-4e22-8d95-b1c333f8699e"
+   },
+<<<<<<< HEAD
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "[notice] A new release of pip is available: 23.0.1 -> 23.1\n",
+      "[notice] To update, run: python.exe -m pip install --upgrade pip\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Requirement already satisfied: mysql.connector in c:\\python310\\lib\\site-packages (2.2.9)\n"
+     ]
+    }
+   ],
+=======
+   "outputs": [],
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "source": [
+    "#Connect to the cluster\n",
+    "%pip install mysql.connector\n",
+    "import mysql.connector\n",
+    "from mysql.connector import Error\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 3,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "7mMfAonz-HnK",
+    "outputId": "532246b8-ff67-4734-de21-0163227d49d0"
+   },
+   "outputs": [],
+   "source": [
+    "\n",
+    "def create_server_connection(host_name, user_name, user_password):\n",
+    "    connection = None\n",
+    "    try:\n",
+    "        connection = mysql.connector.connect(\n",
+    "            host=host_name,\n",
+    "            user=user_name,\n",
+    "            passwd=user_password\n",
+    "        )\n",
+    "        print(\"MySQL Database connection successful\")\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")\n",
+    "\n",
+    "    return connection\n",
+    "\n",
+    "pw = 'sherrer588' # IMPORTANT! Put your MySQL Terminal password here.\n",
+    "db = \"school\" # This is the name of the database we will create in the next step - call it whatever you like.\n",
+    "\n",
+    "connection = create_server_connection(\"localhost\", \"root\", pw)"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 4,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 337
+    },
+    "id": "wWQP2mgO-Nlw",
+    "outputId": "43f9bb93-683d-462d-c0ee-bf1eea362e8b"
+   },
+   "outputs": [],
+   "source": [
+    "def create_database(connection, query):\n",
+    "    cursor = connection.cursor()\n",
+    "    try:\n",
+    "        cursor.execute(query)\n",
+    "        print(\"Database created successfully\")\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")\n",
+    "\n",
+    "create_database_query = \"CREATE DATABASE school\"\n",
+    "create_database(connection, create_database_query)"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 5,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "id": "yZwAsqVR-Q1y"
+   },
+   "outputs": [],
+   "source": [
+    "def create_db_connection(host_name, user_name, user_password, db_name):\n",
+    "    connection = None\n",
+    "    try:\n",
+    "        connection = mysql.connector.connect(\n",
+    "            host=host_name,\n",
+    "            user=user_name,\n",
+    "            passwd=user_password,\n",
+    "            database=db_name\n",
+    "        )\n",
+    "        print(\"MySQL Database connection successful\")\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")\n",
+    "\n",
+    "    return connection"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 6,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "id": "Tpu2_pj5-UeX"
+   },
+   "outputs": [],
+   "source": [
+    "def execute_query(connection, query):\n",
+    "    cursor = connection.cursor()\n",
+    "    try:\n",
+    "        cursor.execute(query)\n",
+    "        connection.commit()\n",
+    "        print(\"Query successful\")\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 15,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 631
+    },
+    "id": "6V6KJHGgwzgq",
+    "outputId": "b782835f-557f-4f89-aa94-210dff74c5d0"
+   },
+   "outputs": [],
+   "source": [
+    "# Assign our SQL command to a python variable using triple quotes to create a multi-line string\n",
+    "\n",
+    "drop_table= '''\n",
+    "Drop table finalProject\n",
+    "'''\n",
+    "    \n",
+    "    \n",
+    "create_finalProject_table = \"\"\"\n",
+    "CREATE TABLE if not exists finalProject (\n",
+    "  Id INT PRIMARY KEY AUTO_INCREMENT,\n",
+    "  Entity VARCHAR(32) NOT NULL,\n",
+    "  Year INT NOT NULL,\n",
+    "  Annual_CO₂_emissions float,\n",
+    "  GDP_per_capita float,\n",
+    "  Population float ,\n",
+    "  per_gdp_CO2 float ,\n",
+    "  Annual_nitrous_oxide_emissions float,\n",
+    "Annual_methane_emissions float,\n",
+    "per_capita_CO2 float,\n",
+    "C02_emmissions_worldtotal float\n",
+    ");\n",
+    " \"\"\"\n",
+    "\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db) # Connect to the Database\n",
+    "execute_query(connection, drop_table) # Execute our defined query\n",
+    "execute_query(connection, create_finalProject_table) # Execute our defined query\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 16,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "id": "XahDIlFTIapJ"
+   },
+   "outputs": [],
+   "source": [
+    "def execute_list_query(connection, sql, val):\n",
+    "    cursor = connection.cursor()\n",
+    "    try:\n",
+    "        cursor.executemany(sql, val)\n",
+    "        connection.commit()\n",
+    "        print(\"Query successful\")\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "JXvpyAn6JJbm"
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 17,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "id": "w0cBKG1PocdH"
+   },
+   "outputs": [],
+   "source": [
+    "\n",
+    "df_co2 = pd.read_csv(\"./CSV/annual-co2-emissions-per-country.csv\")\n",
+    "df_pop = pd.read_csv('./CSV/population-and-demography.csv')\n",
+    "df_gdp = pd.read_csv('./CSV/gdp-per-capita.csv')\n",
+    "df_methane = pd.read_csv('./CSV/methane-emissions.csv')\n",
+    "df_nitrous = pd.read_csv('./CSV/nitrous-oxide-emissions.csv')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "ZumecnGq5k7w"
+   },
+   "source": [
+    "THIS IS THE MERGE PART "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "IBRErOMrp4Jl"
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "KjbkA4S55O80"
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 18,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 423
+    },
+    "id": "8zkEhZ0VpV-0",
+    "outputId": "69b75850-b309-4451-f8ff-aede8370156c"
+   },
+<<<<<<< HEAD
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Entity</th>\n",
+       "      <th>Year</th>\n",
+       "      <th>Annual CO₂ emissions</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>5320</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1785</td>\n",
+       "      <td>3.664000e+03</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5321</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1786</td>\n",
+       "      <td>3.664000e+03</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5322</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1787</td>\n",
+       "      <td>3.664000e+03</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5323</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1788</td>\n",
+       "      <td>3.664000e+03</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5324</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1789</td>\n",
+       "      <td>3.664000e+03</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31081</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2017</td>\n",
+       "      <td>3.609674e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31082</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2018</td>\n",
+       "      <td>3.682651e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31083</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2019</td>\n",
+       "      <td>3.708256e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31084</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2020</td>\n",
+       "      <td>3.526409e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31085</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>3.712385e+10</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>1294 rows × 3 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       Entity  Year  Annual CO₂ emissions\n",
+       "5320   Canada  1785          3.664000e+03\n",
+       "5321   Canada  1786          3.664000e+03\n",
+       "5322   Canada  1787          3.664000e+03\n",
+       "5323   Canada  1788          3.664000e+03\n",
+       "5324   Canada  1789          3.664000e+03\n",
+       "...       ...   ...                   ...\n",
+       "31081   World  2017          3.609674e+10\n",
+       "31082   World  2018          3.682651e+10\n",
+       "31083   World  2019          3.708256e+10\n",
+       "31084   World  2020          3.526409e+10\n",
+       "31085   World  2021          3.712385e+10\n",
+       "\n",
+       "[1294 rows x 3 columns]"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+=======
+   "outputs": [],
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "source": [
+    "\n",
+    "#pd.set_option('display.max_rows', None)\n",
+    "#pd.set_option('display.max_columns', None)\n",
+    "\n",
+    "\n",
+    "pd.reset_option('display.max_rows')\n",
+    "pd.reset_option('display.max_columns')\n",
+    "\n",
+    "countries_array = ['Russia', 'China', 'United States', 'United Kingdom','Canada', 'World']\n",
+    "\n",
+    "\n",
+    "\n",
+    "df_co2_noname = df_co2[['Entity','Year','Annual CO₂ emissions']] \n",
+    "\n",
+    "df_co2_final = df_co2_noname[(df_co2_noname['Entity'].isin(countries_array))]\n",
+    "\n",
+    "df_co2_final"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 513
+    },
+    "id": "g_-MZR3KFd_m",
+    "outputId": "898c2ef3-c3a4-44ec-ea23-e5c898b9b77b"
+   },
+   "outputs": [],
+<<<<<<< HEAD
+   "source": []
+=======
+   "source": [
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "  fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "  #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "  co2_country = sns.lineplot(\n",
+    "      data=df_co2_final,\n",
+    "      x='Year',\n",
+    "      y='Annual CO₂ emissions',\n",
+    "      hue='Entity'\n",
+    "  )\n",
+    "  co2_country.set(\n",
+    "      xlabel='Date',\n",
+    "      ylabel='Kilotonnes of CO2 ',\n",
+    "      ylim=(0,None),\n",
+    "      title='''CO2 Emissions from 'countries_array' per year (1750 - 2021)'''\n",
+    "  )\n",
+    "\n",
+    "  plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "  plt.show()\n",
+    "  #plt.legend(title='')"
+   ]
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 19,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 423
+    },
+    "id": "PBbMtxPge4b9",
+    "outputId": "1e4789f8-2656-4323-b342-ad2362bc9da4"
+   },
+<<<<<<< HEAD
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Entity</th>\n",
+       "      <th>Year</th>\n",
+       "      <th>Annual methane emissions</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>5814</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1851</td>\n",
+       "      <td>9.772536e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5815</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1852</td>\n",
+       "      <td>9.972014e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5816</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1853</td>\n",
+       "      <td>1.034139e+07</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5817</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1854</td>\n",
+       "      <td>1.071860e+07</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5818</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1855</td>\n",
+       "      <td>1.110386e+07</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34708</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2017</td>\n",
+       "      <td>1.012901e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34709</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2018</td>\n",
+       "      <td>1.021516e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34710</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2019</td>\n",
+       "      <td>1.032124e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34711</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2020</td>\n",
+       "      <td>1.037299e+10</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>34712</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>1.050691e+10</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>1026 rows × 3 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       Entity  Year  Annual methane emissions\n",
+       "5814   Canada  1851              9.772536e+06\n",
+       "5815   Canada  1852              9.972014e+06\n",
+       "5816   Canada  1853              1.034139e+07\n",
+       "5817   Canada  1854              1.071860e+07\n",
+       "5818   Canada  1855              1.110386e+07\n",
+       "...       ...   ...                       ...\n",
+       "34708   World  2017              1.012901e+10\n",
+       "34709   World  2018              1.021516e+10\n",
+       "34710   World  2019              1.032124e+10\n",
+       "34711   World  2020              1.037299e+10\n",
+       "34712   World  2021              1.050691e+10\n",
+       "\n",
+       "[1026 rows x 3 columns]"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+=======
+   "outputs": [],
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "source": [
+    "\n",
+    "#df_methane = pd.read_csv(df_methane)\n",
+    "\n",
+    "df_methane_noname = df_methane[['Entity','Year','Annual methane emissions']] \n",
+    "\n",
+    "df_methane_final = df_methane_noname[(df_methane_noname['Entity'].isin(countries_array))]\n",
+    "\n",
+    "df_methane_final"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 367
+    },
+    "id": "BsVMpDGajby9",
+    "outputId": "fe9e74ed-6dcf-49ea-e52e-38571e295595"
+   },
+   "outputs": [],
+<<<<<<< HEAD
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+=======
+   "source": [
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "  fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "  #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "  ax_canada_vs_canada_no_factory = sns.lineplot(\n",
+    "      data=df_methane_final,\n",
+    "      x='Year',\n",
+    "      y='Annual methane emissions',\n",
+    "      hue='Entity'\n",
+    "  )\n",
+    "  ax_canada_vs_canada_no_factory.set(\n",
+    "      xlabel='Date',\n",
+    "      ylabel='Kilotonnes of methane',\n",
+    "      ylim=(0,None),\n",
+    "      title='''Methane Emissions from 'countries_array' per year (1850 - 2021)'''\n",
+    "  )\n",
+    "\n",
+    "  plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "  plt.show()\n",
+    "  #plt.legend(title='')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 423
+    },
+    "id": "tQdAXKUolGoO",
+    "outputId": "f901e5c8-069f-4d6e-e03f-718978fc177e"
+   },
+<<<<<<< HEAD
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Entity</th>\n",
+       "      <th>Year</th>\n",
+       "      <th>Annual nitrous oxide emissions</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>5985</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1851</td>\n",
+       "      <td>3.138664e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5986</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1852</td>\n",
+       "      <td>3.190522e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5987</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1853</td>\n",
+       "      <td>3.240610e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5988</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1854</td>\n",
+       "      <td>3.288250e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5989</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1855</td>\n",
+       "      <td>3.332765e+06</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>35050</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2017</td>\n",
+       "      <td>2.875266e+09</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>35051</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2018</td>\n",
+       "      <td>2.870180e+09</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>35052</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2019</td>\n",
+       "      <td>2.885550e+09</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>35053</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2020</td>\n",
+       "      <td>2.917279e+09</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>35054</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>2.968141e+09</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>1026 rows × 3 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       Entity  Year  Annual nitrous oxide emissions\n",
+       "5985   Canada  1851                    3.138664e+06\n",
+       "5986   Canada  1852                    3.190522e+06\n",
+       "5987   Canada  1853                    3.240610e+06\n",
+       "5988   Canada  1854                    3.288250e+06\n",
+       "5989   Canada  1855                    3.332765e+06\n",
+       "...       ...   ...                             ...\n",
+       "35050   World  2017                    2.875266e+09\n",
+       "35051   World  2018                    2.870180e+09\n",
+       "35052   World  2019                    2.885550e+09\n",
+       "35053   World  2020                    2.917279e+09\n",
+       "35054   World  2021                    2.968141e+09\n",
+       "\n",
+       "[1026 rows x 3 columns]"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+=======
+   "outputs": [],
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "source": [
+    "#df_nitrous = pd.read_csv(nitrous_path)\n",
+    "\n",
+    "df_nitrous_noname = df_nitrous[['Entity','Year','Annual nitrous oxide emissions']] \n",
+    "\n",
+    "df_nitrous_final = df_nitrous_noname[(df_nitrous_noname['Entity'].isin(countries_array))]\n",
+    "\n",
+    "df_nitrous_final"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 367
+    },
+    "id": "1t-4fN8TlHK-",
+    "outputId": "3473b88c-9a4f-4e04-dc51-e32c1433c35e"
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 22,
+=======
+   "execution_count": null,
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 502
+    },
+    "id": "GMjOovf47es4",
+    "outputId": "b3ee58f1-a631-4526-e424-6effc207f4cc"
+   },
+<<<<<<< HEAD
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Entity</th>\n",
+       "      <th>Year</th>\n",
+       "      <th>Annual CO₂ emissions</th>\n",
+       "      <th>GDP per capita</th>\n",
+       "      <th>Population</th>\n",
+       "      <th>per_capita_CO2</th>\n",
+       "      <th>per_gdp_CO2</th>\n",
+       "      <th>Annual nitrous oxide emissions</th>\n",
+       "      <th>Annual methane emissions</th>\n",
+       "      <th>CO₂ emissions world total</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1950</td>\n",
+       "      <td>1.541338e+08</td>\n",
+       "      <td>11622.000</td>\n",
+       "      <td>13743068</td>\n",
+       "      <td>11.215382</td>\n",
+       "      <td>0.965013</td>\n",
+       "      <td>1.650352e+07</td>\n",
+       "      <td>4.749925e+07</td>\n",
+       "      <td>2.567496</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1951</td>\n",
+       "      <td>1.626780e+08</td>\n",
+       "      <td>12007.000</td>\n",
+       "      <td>14085723</td>\n",
+       "      <td>11.549143</td>\n",
+       "      <td>0.961867</td>\n",
+       "      <td>1.676840e+07</td>\n",
+       "      <td>4.916457e+07</td>\n",
+       "      <td>2.549894</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1952</td>\n",
+       "      <td>1.594088e+08</td>\n",
+       "      <td>12486.000</td>\n",
+       "      <td>14485746</td>\n",
+       "      <td>11.004525</td>\n",
+       "      <td>0.881349</td>\n",
+       "      <td>1.708863e+07</td>\n",
+       "      <td>5.007333e+07</td>\n",
+       "      <td>2.465442</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1953</td>\n",
+       "      <td>1.606082e+08</td>\n",
+       "      <td>12726.000</td>\n",
+       "      <td>14901533</td>\n",
+       "      <td>10.777964</td>\n",
+       "      <td>0.846925</td>\n",
+       "      <td>1.745643e+07</td>\n",
+       "      <td>5.130872e+07</td>\n",
+       "      <td>2.415973</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Canada</td>\n",
+       "      <td>1954</td>\n",
+       "      <td>1.629677e+08</td>\n",
+       "      <td>12272.000</td>\n",
+       "      <td>15323199</td>\n",
+       "      <td>10.635355</td>\n",
+       "      <td>0.866636</td>\n",
+       "      <td>1.786397e+07</td>\n",
+       "      <td>5.273654e+07</td>\n",
+       "      <td>2.400124</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>340</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2000</td>\n",
+       "      <td>2.545362e+10</td>\n",
+       "      <td>9914.567</td>\n",
+       "      <td>6148899000</td>\n",
+       "      <td>4.139542</td>\n",
+       "      <td>0.417521</td>\n",
+       "      <td>2.393431e+09</td>\n",
+       "      <td>8.400780e+09</td>\n",
+       "      <td>100.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>341</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>3.336435e+10</td>\n",
+       "      <td>13179.495</td>\n",
+       "      <td>6985603000</td>\n",
+       "      <td>4.776158</td>\n",
+       "      <td>0.362393</td>\n",
+       "      <td>2.641035e+09</td>\n",
+       "      <td>9.454867e+09</td>\n",
+       "      <td>100.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>342</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2016</td>\n",
+       "      <td>3.552419e+10</td>\n",
+       "      <td>14700.372</td>\n",
+       "      <td>7513474000</td>\n",
+       "      <td>4.728065</td>\n",
+       "      <td>0.321629</td>\n",
+       "      <td>2.822356e+09</td>\n",
+       "      <td>9.974606e+09</td>\n",
+       "      <td>100.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>343</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2017</td>\n",
+       "      <td>3.609674e+10</td>\n",
+       "      <td>14944.094</td>\n",
+       "      <td>7599822300</td>\n",
+       "      <td>4.749682</td>\n",
+       "      <td>0.317830</td>\n",
+       "      <td>2.875266e+09</td>\n",
+       "      <td>1.012901e+10</td>\n",
+       "      <td>100.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>344</th>\n",
+       "      <td>World</td>\n",
+       "      <td>2018</td>\n",
+       "      <td>3.682651e+10</td>\n",
+       "      <td>15212.415</td>\n",
+       "      <td>7683790000</td>\n",
+       "      <td>4.792753</td>\n",
+       "      <td>0.315055</td>\n",
+       "      <td>2.870180e+09</td>\n",
+       "      <td>1.021516e+10</td>\n",
+       "      <td>100.000000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>345 rows × 10 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     Entity  Year  Annual CO₂ emissions  GDP per capita  Population  \\\n",
+       "0    Canada  1950          1.541338e+08       11622.000    13743068   \n",
+       "1    Canada  1951          1.626780e+08       12007.000    14085723   \n",
+       "2    Canada  1952          1.594088e+08       12486.000    14485746   \n",
+       "3    Canada  1953          1.606082e+08       12726.000    14901533   \n",
+       "4    Canada  1954          1.629677e+08       12272.000    15323199   \n",
+       "..      ...   ...                   ...             ...         ...   \n",
+       "340   World  2000          2.545362e+10        9914.567  6148899000   \n",
+       "341   World  2010          3.336435e+10       13179.495  6985603000   \n",
+       "342   World  2016          3.552419e+10       14700.372  7513474000   \n",
+       "343   World  2017          3.609674e+10       14944.094  7599822300   \n",
+       "344   World  2018          3.682651e+10       15212.415  7683790000   \n",
+       "\n",
+       "     per_capita_CO2  per_gdp_CO2  Annual nitrous oxide emissions  \\\n",
+       "0         11.215382     0.965013                    1.650352e+07   \n",
+       "1         11.549143     0.961867                    1.676840e+07   \n",
+       "2         11.004525     0.881349                    1.708863e+07   \n",
+       "3         10.777964     0.846925                    1.745643e+07   \n",
+       "4         10.635355     0.866636                    1.786397e+07   \n",
+       "..              ...          ...                             ...   \n",
+       "340        4.139542     0.417521                    2.393431e+09   \n",
+       "341        4.776158     0.362393                    2.641035e+09   \n",
+       "342        4.728065     0.321629                    2.822356e+09   \n",
+       "343        4.749682     0.317830                    2.875266e+09   \n",
+       "344        4.792753     0.315055                    2.870180e+09   \n",
+       "\n",
+       "     Annual methane emissions  CO₂ emissions world total  \n",
+       "0                4.749925e+07                   2.567496  \n",
+       "1                4.916457e+07                   2.549894  \n",
+       "2                5.007333e+07                   2.465442  \n",
+       "3                5.130872e+07                   2.415973  \n",
+       "4                5.273654e+07                   2.400124  \n",
+       "..                        ...                        ...  \n",
+       "340              8.400780e+09                 100.000000  \n",
+       "341              9.454867e+09                 100.000000  \n",
+       "342              9.974606e+09                 100.000000  \n",
+       "343              1.012901e+10                 100.000000  \n",
+       "344              1.021516e+10                 100.000000  \n",
+       "\n",
+       "[345 rows x 10 columns]"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+=======
+   "outputs": [],
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "source": [
+    "df_pop2 = df_pop[[\"Country name\", \"Year\", \"Population\"]]\n",
+    "#print(df_pop2)\n",
+    "\n",
+    "df_pop3 = pd.merge(\n",
+    "\n",
+    "    left = df_co2,\n",
+    "    right = df_gdp,\n",
+    "    left_on = [\"Entity\",\"Year\"],\n",
+    "    right_on = [\"Entity\",\"Year\"]\n",
+    "\n",
+    ")\n",
+    "\n",
+    "df_pop3 = pd.merge(\n",
+    "\n",
+    "    left = df_pop3,\n",
+    "    right = df_pop,\n",
+    "    left_on = [\"Entity\",\"Year\"],\n",
+    "    right_on = [\"Country name\",\"Year\"]\n",
+    "\n",
+    ")\n",
+    "\n",
+    "df_pop2 = pd.merge(\n",
+    "\n",
+    "    left = df_co2,\n",
+    "    right = df_pop,\n",
+    "    left_on = [\"Entity\",\"Year\"],\n",
+    "    right_on = [\"Country name\",\"Year\"]\n",
+    "\n",
+    ")\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "df_pop3[\"per_capita_CO2\"] = df_pop3[\"Annual CO₂ emissions\"]/df_pop3[\"Population\"]\n",
+    "df_pop3[\"per_gdp_CO2\"] = df_pop3[\"Annual CO₂ emissions\"]*1000/(df_pop3[\"GDP per capita\"]*df_pop3[\"Population\"])\n",
+    "\n",
+    "#print(df_pop2)\n",
+    "# Filter the df_pop2 dataframe to contain only the 'World' rows\n",
+    "df_world = df_pop2[df_pop2['Entity'] == 'World'][['Year', 'Annual CO₂ emissions']]\n",
+    "#print(df_world)\n",
+    "# Merge the filtered dataframe with the original dataframe on the 'Year' column\n",
+    "df_pop2 = pd.merge(df_pop2, df_world, on='Year', how='left', suffixes=('', '_world'))\n",
+    "#print(df_pop2)\n",
+    "# Calculate the percentage of global CO2 emissions for each country and year\n",
+    "df_pop2['CO₂ emissions world total'] = df_pop2['Annual CO₂ emissions'] / df_pop2['Annual CO₂ emissions_world'] * 100\n",
+    "#print(df_pop2)\n",
+    "# Drop the redundant 'Annual CO₂ emissions_world' column\n",
+    "df_pop2 = df_pop2.drop('Annual CO₂ emissions_world', axis=1)\n",
+    "\n",
+    "\n",
+    "\n",
+    "df_pop2_final = df_pop2[(df_pop2['Entity'].isin(countries_array))]\n",
+    "#df_country_final = df_country[(df_country['Entity'].isin(countries_array))]\n",
+    "#df_pop2_final\n",
+    "\n",
+    "df_pop3_final = df_pop3[(df_pop3['Entity'].isin(countries_array))]\n",
+    "#from google.colab import files\n",
+    "#df_pop3_final.to_csv('output.csv', encoding = 'utf-8-sig') \n",
+    "#@#files.download('output.csv')\n",
+    "df_pop3_final = df_pop3_final.drop(columns = ['Code_x', 'Code_y', '417485-annotations', 'Country name', 'Population of children under the age of 1', 'Population aged 20 to 29 years'\t,'Population aged 30 to 39 years'\t,'Population aged 40 to 49 years',\t'Population aged 50 to 59 years',\t'Population aged 60 to 69 years',\t'Population aged 70 to 79 years',\t'Population aged 80 to 89 years',\t'Population aged 90 to 99 years'\t,'Population older than 100 years' ])\n",
+    "df_pop3_final = df_pop3_final.drop(columns=['Population of children under the age of 5','Population of children under the age of 15','Population under the age of 25','Population aged 15 to 64 years','Population older than 15 years','Population older than 18 years','Population at age 1','Population aged 1 to 4 years','Population aged 5 to 9 years','Population aged 10 to 14 years','Population aged 15 to 19 years'])\n",
+    "df_pop2_final = df_pop2_final.drop(columns = [ 'Country name', 'Population of children under the age of 1', 'Population aged 20 to 29 years'\t,'Population aged 30 to 39 years'\t,'Population aged 40 to 49 years',\t'Population aged 50 to 59 years',\t'Population aged 60 to 69 years',\t'Population aged 70 to 79 years',\t'Population aged 80 to 89 years',\t'Population aged 90 to 99 years'\t,'Population older than 100 years' ])\n",
+    "df_pop2_final = df_pop2_final.drop(columns=['Population of children under the age of 5','Population of children under the age of 15','Population under the age of 25','Population aged 15 to 64 years','Population older than 15 years','Population older than 18 years','Population at age 1','Population aged 1 to 4 years','Population aged 5 to 9 years','Population aged 10 to 14 years','Population aged 15 to 19 years'])\n",
+    "df_pop2_final = df_pop2_final.drop(columns=['Code','Annual CO₂ emissions','Population'])\n",
+    "\n",
+    "df_pop3_final = pd.merge(\n",
+    "    left = df_pop3_final,\n",
+    "    right = df_nitrous_final,\n",
+    "    left_on = [\"Entity\",\"Year\"],\n",
+    "    right_on = [\"Entity\",\"Year\"]\n",
+    ")\n",
+    "df_pop3_final = pd.merge(\n",
+    "    \n",
+    " left = df_pop3_final,\n",
+    "    right = df_methane_final,\n",
+    "    left_on = [\"Entity\",\"Year\"],\n",
+    "    right_on = [\"Entity\",\"Year\"]\n",
+    "\n",
+    ")\n",
+    "df_pop3_final = pd.merge(\n",
+    "    \n",
+    " left = df_pop3_final,\n",
+    "    right = df_pop2_final,\n",
+    "    left_on = [\"Entity\",\"Year\"],\n",
+    "    right_on = [\"Entity\",\"Year\"]\n",
+    "\n",
+    ")\n",
+    "\n",
+    "df_pop3_final\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "MySQL Database connection successful\n",
+      "Query successful\n"
+     ]
+    }
+   ],
+=======
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+>>>>>>> ba983a9bfe8b9cc59352de92bbfc7d6a6b31f536
+   "source": [
+    "sql1 = '''\n",
+    "   INSERT INTO finalProject (Entity, Year, Annual_CO₂_emissions,  GDP_per_capita, Population, per_gdp_CO2, Annual_nitrous_oxide_emissions , Annual_methane_emissions, per_capita_CO2 ,\n",
+    "C02_emmissions_worldtotal)\n",
+    "    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s,%s,%s)\n",
+    "  '''\n",
+    "\n",
+    "val1 = df_pop3_final.values.tolist()\n",
+    "#print(val1)\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "execute_list_query(connection, sql1, val1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 358
+    },
+    "id": "3LuZZ0Mf9ZkK",
+    "outputId": "a128c080-175a-43db-bef2-cd720dc6245f"
+   },
+   "outputs": [],
+   "source": [
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "  fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "  #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "  co2_per_capita = sns.lineplot(\n",
+    "      data=df_pop2_final,\n",
+    "      x='Year',\n",
+    "      y='per_capita_CO2',\n",
+    "      hue='Entity'\n",
+    "  )\n",
+    "  co2_per_capita.set(\n",
+    "      xlabel='Date',\n",
+    "      ylabel='Kilotonnes of CO₂',\n",
+    "      ylim=(0,None),\n",
+    "      title='''CO₂ Emissions per capita from 'countries_array' per year (1950 - 2020)'''\n",
+    "  )\n",
+    "\n",
+    "  plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "  #plt.legend(title='')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 353
+    },
+    "id": "kRbXMt7_lfA2",
+    "outputId": "3179aa4b-f8fd-44e8-839a-006ed0bc2e6a"
+   },
+   "outputs": [],
+   "source": [
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "  fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "  #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "  co2_per_capita = sns.lineplot(\n",
+    "      data=df_pop2_final,\n",
+    "      x='Year',\n",
+    "      y='CO₂ emissions %',\n",
+    "      hue='Entity'\n",
+    "  )\n",
+    "  co2_per_capita.set(\n",
+    "      xlabel='Date',\n",
+    "      ylabel='Kilotonnes of CO₂',\n",
+    "      ylim=(0,None),\n",
+    "      title='''CO₂ Emissions compared worldwide from 'countries_array' per year (1950 - 2020)'''\n",
+    "  )\n",
+    "\n",
+    "  plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "  \n",
+    "  plt.savefig('co2_emission_gdp.png', bbox_inches='tight')\n",
+    "  #files.download('co2_emission_gdp.png')\n",
+    "  #plt.legend(title='')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 353
+    },
+    "id": "Ao2YjA0HqTD5",
+    "outputId": "6369967e-636c-4d86-e25b-51ff5018ee66"
+   },
+   "outputs": [],
+   "source": [
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "  fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "  #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "  co2_per_capita = sns.lineplot(\n",
+    "      data=df_pop3_final,\n",
+    "      x='Year',\n",
+    "      y='per_gdp_CO2',\n",
+    "      hue='Entity'\n",
+    "  )\n",
+    "  co2_per_capita.set(\n",
+    "      xlabel='Date',\n",
+    "      ylabel='Kilotonnes of CO₂',\n",
+    "      ylim=(0,None),\n",
+    "      title='''CO₂ Emissions compared worldwide from 'countries_array' per year (1950 - 2020)'''\n",
+    "  )\n",
+    "\n",
+    "  plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "  #plt.legend(title='')\n",
+    "\n",
+    "#plt.savefig('co2_emission_gdp.png', bbox_inches='tight')\n",
+    "#files.download('co2_emission_gdp.png')\n",
+    " "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "b053uVaLoiBg"
+   },
+   "source": [
+    "# New Section"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "YRw_WF5xsGXk"
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def read_query(connection, query):\n",
+    "    cursor = connection.cursor()\n",
+    "    result = None\n",
+    "    try:\n",
+    "        cursor.execute(query)\n",
+    "        result = cursor.fetchall()\n",
+    "        return result\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "firstQuery ='''SELECT ENTITY, Annual_CO₂_emissions, Year from finalProject;'''\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "df_co2_graph = read_query(connection, firstQuery)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_co2_graph"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result = df_co2_graph.concat(df_list, axis=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def read_query(connection, query):\n",
+    "    cursor = connection.cursor()\n",
+    "    result = None\n",
+    "    try:\n",
+    "        cursor.execute(query)\n",
+    "        result = cursor.fetchall()\n",
+    "        return result\n",
+    "    except Error as err:\n",
+    "        print(f\"Error: '{err}'\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "co2Query = '''\n",
+    "    SELECT Entity,\n",
+    "    Annual_CO₂_emissions,\n",
+    "    Year\n",
+    "    FROM finalProject\n",
+    "'''\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "co2_data = read_query(connection, co2Query)\n",
+    "\n",
+    "# Create a pandas DataFrame from the list\n",
+    "df_co2_final = pd.DataFrame(co2_data, columns=['Entity', 'Annual CO₂ emissions', 'Year'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'plt' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[3], line 5\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[38;5;28;01mimport\u001b[39;00m \u001b[38;5;21;01mmatplotlib\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mticker\u001b[39;00m \u001b[38;5;28;01mas\u001b[39;00m \u001b[38;5;21;01mticker\u001b[39;00m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;66;03m# Creating Graph for comparing Canada All and Canada - Factory\u001b[39;00m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;66;03m# df_canada_vs_canada_no_factory\u001b[39;00m\n\u001b[1;32m----> 5\u001b[0m \u001b[43mplt\u001b[49m\u001b[38;5;241m.\u001b[39mstyle\u001b[38;5;241m.\u001b[39muse(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mdefault\u001b[39m\u001b[38;5;124m'\u001b[39m)\n\u001b[0;32m      7\u001b[0m \u001b[38;5;28;01mwith\u001b[39;00m plt\u001b[38;5;241m.\u001b[39mstyle\u001b[38;5;241m.\u001b[39mcontext(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mSolarize_Light2\u001b[39m\u001b[38;5;124m'\u001b[39m):\n\u001b[0;32m     10\u001b[0m     fig,axs \u001b[38;5;241m=\u001b[39m plt\u001b[38;5;241m.\u001b[39msubplots(figsize\u001b[38;5;241m=\u001b[39m(\u001b[38;5;241m10\u001b[39m,\u001b[38;5;241m5\u001b[39m))\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'plt' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "import matplotlib.ticker as ticker\n",
+    "\n",
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "    fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "    #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "    axs.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'{x / 10**9:.0f}'))\n",
+    "\n",
+    "    co2_country = sns.lineplot(\n",
+    "        data=df_co2_final,\n",
+    "        x='Year',\n",
+    "        y='Annual CO₂ emissions',\n",
+    "        hue='Entity'\n",
+    "    )\n",
+    "\n",
+    "    co2_country.set(\n",
+    "        xlabel='Date',\n",
+    "        ylabel='Billion Tonnes of CO₂',\n",
+    "        ylim=(0,None),\n",
+    "        title='''CO₂ Emissions by Country per Year (1950 - 2018)'''\n",
+    "    )\n",
+    "    axs.set_xlim(df_co2_final['Year'].min(), df_co2_final['Year'].max())\n",
+    "    \n",
+    "    plt.xticks(range(1950, 2018, 5), range(1950, 2018, 5))\n",
+    "\n",
+    "    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "    #plt.legend(title='')\n",
+    "    \n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'create_db_connection' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[4], line 7\u001b[0m\n\u001b[0;32m      1\u001b[0m methaneQuery \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m'''\u001b[39m\n\u001b[0;32m      2\u001b[0m \u001b[38;5;124m    SELECT Entity,\u001b[39m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;124m    Annual_methane_emissions,\u001b[39m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;124m    Year\u001b[39m\n\u001b[0;32m      5\u001b[0m \u001b[38;5;124m    FROM finalProject\u001b[39m\n\u001b[0;32m      6\u001b[0m \u001b[38;5;124m'''\u001b[39m\n\u001b[1;32m----> 7\u001b[0m connection \u001b[38;5;241m=\u001b[39m \u001b[43mcreate_db_connection\u001b[49m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mlocalhost\u001b[39m\u001b[38;5;124m\"\u001b[39m, \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mroot\u001b[39m\u001b[38;5;124m\"\u001b[39m, pw, db)\n\u001b[0;32m      8\u001b[0m methane_data \u001b[38;5;241m=\u001b[39m read_query(connection, firstQuery)\n\u001b[0;32m     10\u001b[0m \u001b[38;5;66;03m# Create a pandas DataFrame from the list\u001b[39;00m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'create_db_connection' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "methaneQuery = '''\n",
+    "    SELECT Entity,\n",
+    "    Annual_methane_emissions,\n",
+    "    Year\n",
+    "    FROM finalProject\n",
+    "'''\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "methane_data = read_query(connection, firstQuery)\n",
+    "\n",
+    "# Create a pandas DataFrame from the list\n",
+    "df_methane_final = pd.DataFrame(methane_data, columns=['Entity', 'Annual methane emissions', 'Year'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'create_db_connection' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[5], line 7\u001b[0m\n\u001b[0;32m      1\u001b[0m methaneQuery \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m'''\u001b[39m\n\u001b[0;32m      2\u001b[0m \u001b[38;5;124m    SELECT Entity,\u001b[39m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;124m    Annual_methane_emissions,\u001b[39m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;124m    Year\u001b[39m\n\u001b[0;32m      5\u001b[0m \u001b[38;5;124m    FROM finalProject\u001b[39m\n\u001b[0;32m      6\u001b[0m \u001b[38;5;124m'''\u001b[39m\n\u001b[1;32m----> 7\u001b[0m connection \u001b[38;5;241m=\u001b[39m \u001b[43mcreate_db_connection\u001b[49m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mlocalhost\u001b[39m\u001b[38;5;124m\"\u001b[39m, \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mroot\u001b[39m\u001b[38;5;124m\"\u001b[39m, pw, db)\n\u001b[0;32m      8\u001b[0m methane_data \u001b[38;5;241m=\u001b[39m read_query(connection, firstQuery)\n\u001b[0;32m     10\u001b[0m \u001b[38;5;66;03m# Create a pandas DataFrame from the list\u001b[39;00m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'create_db_connection' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "methaneQuery = '''\n",
+    "    SELECT Entity,\n",
+    "    Annual_methane_emissions,\n",
+    "    Year\n",
+    "    FROM finalProject\n",
+    "'''\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "methane_data = read_query(connection, firstQuery)\n",
+    "\n",
+    "# Create a pandas DataFrame from the list\n",
+    "df_methane_final = pd.DataFrame(methane_data, columns=['Entity', 'Annual methane emissions', 'Year'])\n",
+    "\n",
+    "#--------------------------------\n",
+    "\n",
+    "import matplotlib.ticker as ticker\n",
+    "\n",
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "    fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "    #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "    axs.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'{x / 10**9:.0f}'))\n",
+    "\n",
+    "    ax_canada_vs_canada_no_factory = sns.lineplot(\n",
+    "        data=df_methane_final,\n",
+    "        x='Year',\n",
+    "        y='Annual methane emissions',\n",
+    "        hue='Entity'\n",
+    "    )\n",
+    "    ax_canada_vs_canada_no_factory.set(\n",
+    "        xlabel='Date',\n",
+    "        ylabel='Billion Tonnes of Methane',\n",
+    "        ylim=(0,None),\n",
+    "        title='''Methane Emissions by Country per Year (1850 - 2021)'''\n",
+    "    )\n",
+    "\n",
+    "    axs.set_xlim(df_methane_final['Year'].min(), df_methane_final['Year'].max())\n",
+    "\n",
+    "    plt.xticks(range(1950, 2021, 5), range(1950, 2021, 5))\n",
+    "\n",
+    "    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "    #plt.legend(title='')\n",
+    "\n",
+    "    plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'create_db_connection' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[6], line 7\u001b[0m\n\u001b[0;32m      1\u001b[0m nitrousQuery \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m'''\u001b[39m\n\u001b[0;32m      2\u001b[0m \u001b[38;5;124m    SELECT Entity,\u001b[39m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;124m    Annual_nitrous_oxide_emissions,\u001b[39m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;124m    Year\u001b[39m\n\u001b[0;32m      5\u001b[0m \u001b[38;5;124m    FROM finalProject\u001b[39m\n\u001b[0;32m      6\u001b[0m \u001b[38;5;124m'''\u001b[39m\n\u001b[1;32m----> 7\u001b[0m connection \u001b[38;5;241m=\u001b[39m \u001b[43mcreate_db_connection\u001b[49m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mlocalhost\u001b[39m\u001b[38;5;124m\"\u001b[39m, \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mroot\u001b[39m\u001b[38;5;124m\"\u001b[39m, pw, db)\n\u001b[0;32m      8\u001b[0m nitrous_data \u001b[38;5;241m=\u001b[39m read_query(connection, nitrousQuery)\n\u001b[0;32m     10\u001b[0m \u001b[38;5;66;03m# Create a pandas DataFrame from the list\u001b[39;00m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'create_db_connection' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "nitrousQuery = '''\n",
+    "    SELECT Entity,\n",
+    "    Annual_nitrous_oxide_emissions,\n",
+    "    Year\n",
+    "    FROM finalProject\n",
+    "'''\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "nitrous_data = read_query(connection, nitrousQuery)\n",
+    "\n",
+    "# Create a pandas DataFrame from the list\n",
+    "df_nitrous_final = pd.DataFrame(nitrous_data, columns=['Entity', 'Annual nitrous emissions', 'Year'])\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'plt' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[7], line 5\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[38;5;28;01mimport\u001b[39;00m \u001b[38;5;21;01mmatplotlib\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mticker\u001b[39;00m \u001b[38;5;28;01mas\u001b[39;00m \u001b[38;5;21;01mticker\u001b[39;00m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;66;03m# Creating Graph for comparing Canada All and Canada - Factory\u001b[39;00m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;66;03m# df_canada_vs_canada_no_factory\u001b[39;00m\n\u001b[1;32m----> 5\u001b[0m \u001b[43mplt\u001b[49m\u001b[38;5;241m.\u001b[39mstyle\u001b[38;5;241m.\u001b[39muse(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mdefault\u001b[39m\u001b[38;5;124m'\u001b[39m)\n\u001b[0;32m      7\u001b[0m \u001b[38;5;28;01mwith\u001b[39;00m plt\u001b[38;5;241m.\u001b[39mstyle\u001b[38;5;241m.\u001b[39mcontext(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mSolarize_Light2\u001b[39m\u001b[38;5;124m'\u001b[39m):\n\u001b[0;32m     10\u001b[0m     fig,axs \u001b[38;5;241m=\u001b[39m plt\u001b[38;5;241m.\u001b[39msubplots(figsize\u001b[38;5;241m=\u001b[39m(\u001b[38;5;241m10\u001b[39m,\u001b[38;5;241m5\u001b[39m))\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'plt' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "import matplotlib.ticker as ticker\n",
+    "\n",
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "    fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "  #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "    axs.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'{x / 10**9:.1f}'))\n",
+    "\n",
+    "    ax_canada_vs_canada_no_factory = sns.lineplot(\n",
+    "        data=df_nitrous_final,\n",
+    "        x='Year',\n",
+    "        y='Annual nitrous emissions',\n",
+    "        hue='Entity'\n",
+    "    )\n",
+    "    ax_canada_vs_canada_no_factory.set(\n",
+    "        xlabel='Date',\n",
+    "        ylabel='Billion Tonnes of Nitrous Oxide',\n",
+    "        ylim=(0,None),\n",
+    "        title='''Nitrous Oxide Emissions by Country per Year (1850 - 2021)'''\n",
+    "    )\n",
+    "\n",
+    "    axs.set_xlim(df_nitrous_final['Year'].min(), df_nitrous_final['Year'].max())\n",
+    "\n",
+    "    plt.xticks(range(1950, 2021, 25), range(1950, 2021, 25))\n",
+    "\n",
+    "    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "  #plt.legend(title='')\n",
+    "\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'create_db_connection' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[8], line 7\u001b[0m\n\u001b[0;32m      1\u001b[0m co2_gdp_Query \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m'''\u001b[39m\n\u001b[0;32m      2\u001b[0m \u001b[38;5;124m    SELECT Entity,\u001b[39m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;124m    per_gdp_CO2,\u001b[39m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;124m    Year\u001b[39m\n\u001b[0;32m      5\u001b[0m \u001b[38;5;124m    FROM finalProject\u001b[39m\n\u001b[0;32m      6\u001b[0m \u001b[38;5;124m'''\u001b[39m\n\u001b[1;32m----> 7\u001b[0m connection \u001b[38;5;241m=\u001b[39m \u001b[43mcreate_db_connection\u001b[49m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mlocalhost\u001b[39m\u001b[38;5;124m\"\u001b[39m, \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mroot\u001b[39m\u001b[38;5;124m\"\u001b[39m, pw, db)\n\u001b[0;32m      8\u001b[0m co2_gdp_data \u001b[38;5;241m=\u001b[39m read_query(connection, co2_gdp_Query)\n\u001b[0;32m     10\u001b[0m \u001b[38;5;66;03m# Create a pandas DataFrame from the list\u001b[39;00m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'create_db_connection' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "co2_gdp_Query = '''\n",
+    "    SELECT Entity,\n",
+    "    per_gdp_CO2,\n",
+    "    Year\n",
+    "    FROM finalProject\n",
+    "'''\n",
+    "connection = create_db_connection(\"localhost\", \"root\", pw, db)\n",
+    "co2_gdp_data = read_query(connection, co2_gdp_Query)\n",
+    "\n",
+    "# Create a pandas DataFrame from the list\n",
+    "df_co2_gdp_final = pd.DataFrame(co2_gdp_data, columns=['Entity', 'per_gdp_CO2', 'Year'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'plt' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[9], line 5\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[38;5;28;01mimport\u001b[39;00m \u001b[38;5;21;01mmatplotlib\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mticker\u001b[39;00m \u001b[38;5;28;01mas\u001b[39;00m \u001b[38;5;21;01mticker\u001b[39;00m\n\u001b[0;32m      3\u001b[0m \u001b[38;5;66;03m# Creating Graph for comparing Canada All and Canada - Factory\u001b[39;00m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;66;03m# df_canada_vs_canada_no_factory\u001b[39;00m\n\u001b[1;32m----> 5\u001b[0m \u001b[43mplt\u001b[49m\u001b[38;5;241m.\u001b[39mstyle\u001b[38;5;241m.\u001b[39muse(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mdefault\u001b[39m\u001b[38;5;124m'\u001b[39m)\n\u001b[0;32m      7\u001b[0m \u001b[38;5;28;01mwith\u001b[39;00m plt\u001b[38;5;241m.\u001b[39mstyle\u001b[38;5;241m.\u001b[39mcontext(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mSolarize_Light2\u001b[39m\u001b[38;5;124m'\u001b[39m):\n\u001b[0;32m     10\u001b[0m     fig,axs \u001b[38;5;241m=\u001b[39m plt\u001b[38;5;241m.\u001b[39msubplots(figsize\u001b[38;5;241m=\u001b[39m(\u001b[38;5;241m10\u001b[39m,\u001b[38;5;241m5\u001b[39m))\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'plt' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import matplotlib.ticker as ticker\n",
+    "\n",
+    "# Creating Graph for comparing Canada All and Canada - Factory\n",
+    "# df_canada_vs_canada_no_factory\n",
+    "plt.style.use('default')\n",
+    "\n",
+    "with plt.style.context('Solarize_Light2'):\n",
+    "\n",
+    "\n",
+    "    fig,axs = plt.subplots(figsize=(10,5))\n",
+    "\n",
+    "    #plt.xticks(range(1750,2021), range(1750,2021))\n",
+    "\n",
+    "    co2_per_capita = sns.lineplot(\n",
+    "        data=df_pop3_final,\n",
+    "        x='Year',\n",
+    "        y='per_gdp_CO2',\n",
+    "        hue='Entity'\n",
+    "    )\n",
+    "    co2_per_capita.set(\n",
+    "        xlabel='Date',\n",
+    "        ylabel='Kilotonnes of CO₂',\n",
+    "        ylim=(0,None),\n",
+    "        title='''CO₂ Emissions compared worldwide from 'countries_array' per year (1950 - 2020)'''\n",
+    "    )\n",
+    "    \n",
+    "    axs.set_xlim(df_nitrous_final['Year'].min(), df_nitrous_final['Year'].max())\n",
+    "\n",
+    "    plt.xticks(range(1950, 2018, 5), range(1950, 2018, 5))\n",
+    "\n",
+    "    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=\"\")\n",
+    "    #plt.legend(title='')\n",
+    "\n",
+    "#plt.savefig('co2_emission_gdp.png', bbox_inches='tight')\n",
+    "#files.download('co2_emission_gdp.png')\n",
+    "\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "colab": {
+   "provenance": []
+  },
+  "kernelspec": {
+   "display_name": "Python 3.11.1 64-bit",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.1"
+  },
+  "vscode": {
+   "interpreter": {
+    "hash": "58c3fd0d1b316d19e13fe4cf46af3636098a47b7eb8e96f9b1d69c723b868d82"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
