@@ -18,7 +18,6 @@ function Login() {
     function handleInputChange(key, newValue) {
         form[key] = newValue;   // ex: form["username"] = "toto";
         setForm(form);
-        console.log(form);
     }
 
     const handleSubmit = async (e) => {
@@ -69,9 +68,6 @@ function Login() {
                 theme: "light",
             }
             toast.error("Login failed!", toastOptions);
-            setTimeout(() => {
-                navigate('/home') //navigate to home after after 2 seconds
-            }, 2000)
         }
     };
 
