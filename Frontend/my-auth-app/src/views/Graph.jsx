@@ -13,9 +13,14 @@ function Graph() {
     const [xyz, setImage] = useState("");
     const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('C02');
+    const [selectedOption2, setSelectedOption2] = useState('Per capita');
 
     const handleSelect = (eventKey) => {
         setSelectedOption(eventKey);
+    };
+
+    const handleSelect2 = (eventKey) => {
+        setSelectedOption2(eventKey);
     };
 
     const handleImage = async (e) => {
@@ -72,13 +77,12 @@ function Graph() {
                             <Dropdown.Toggle variant="success" id="dropdown-basic" className="custom-dropdown">
                                 {selectedOption}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{ minWidth: "200px" }} >
+                            <Dropdown.Menu>
                                 <Dropdown.Item eventKey="C02" className="my-dropdown-item">C02</Dropdown.Item>
                                 <Dropdown.Item eventKey="All GHGs" className="my-dropdown-item">All GHGs</Dropdown.Item>
                                 <Dropdown.Item eventKey="Methane" className="my-dropdown-item">Methane</Dropdown.Item>
                                 <Dropdown.Item eventKey="Nitrous Oxide" className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
                             </Dropdown.Menu>
-
                         </Dropdown>
                     </div>
                     <div className="col order-5 d-flex">
@@ -90,18 +94,18 @@ function Graph() {
                         </div>
                     </div>
                     <div className="col order-1">
-                        <div className='btn-group buttonDropdown'>
-                            <button className='btn btn-secondary dropdown-toggle' type='button' id='defaultDropdown' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
-                                Per capita
-                            </button>
-                            <ul className='dropdown-menu' aria-labelledby='defaultDropdown'>
-                                <li><a className='dropdown-item' href='#'>Per capita</a></li>
-                                <li><a className='dropdown-item' href='#'>Per country</a></li>
-                                <li><a className='dropdown-item' href='#'>Cumulative</a></li>
-                                <li><a className='dropdown-item' href='#'>Per MWh of Energy</a></li>
-                                <li><a className='dropdown-item' href='#'>Per $ of GDP</a></li>
-                            </ul>
-                        </div>
+                        <Dropdown onSelect={handleSelect2} >
+                            <Dropdown.Toggle variant="success" id="dropdown-basic" className="custom-dropdown">
+                                {selectedOption2}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item eventKey="Per capita" className="my-dropdown-item">Per capita</Dropdown.Item>
+                                <Dropdown.Item eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
+                                <Dropdown.Item eventKey="Cumulative" className="my-dropdown-item">Cumulative</Dropdown.Item>
+                                <Dropdown.Item eventKey="Per MWh of Energy" className="my-dropdown-item">Per MWh of Energy</Dropdown.Item>
+                                <Dropdown.Item eventKey="Per $ of GDP" className="my-dropdown-item">Per $ of GDP</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </div>
                 </div>
                 <div className='row my-2 d-flex'>
