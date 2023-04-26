@@ -78,4 +78,4 @@ with plt.style.context('Solarize_Light2'):
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title="")
     #plt.legend(title='')
     
-    fig.savefig('../Database/Pictures/co2_emission.png', bbox_inches='tight')
+    fig.savefig(f'../Database/Pictures/{graphType}.png', bbox_inches='tight')
