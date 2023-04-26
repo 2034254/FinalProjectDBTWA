@@ -111,8 +111,8 @@ function Graph() {
                 <div className='row my-2 d-flex'>
                     <div className='col col-2  px-0'>
                         <ul className='text-left'>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />    Argentina</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />    Australia</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" />Argentina</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" />Australia</li>
                             <li className='checkBoxHigh text-left'><input type="checkbox" />Brazil</li>
                             <li className='checkBoxHigh text-left'><input type="checkbox" />Canada</li>
                             <li className='checkBoxHigh text-left'><input type="checkbox" />China</li>
@@ -129,30 +129,32 @@ function Graph() {
                             <li className='checkBoxHigh text-left'><input type="checkbox" />World</li>
                         </ul>
                     </div>
-                    <div className='col col-9 px-0 d-flex'  >
-                        <span className='align-self-center' >
-                            <img src={xyz} alt="" className='imageSize' />
+                    <div className='col col-2'></div>
+                    <div className='col col-8 col-md-6 px-0 d-flex align-items-center justify-content-center mx-auto'  >
+                        <span className='align-self-center mx-auto' >
+                            <img src={xyz} alt="" className='imageSize' style={{ maxWidth: "100%", minWidth: "10%" }} />
                         </span>
                     </div>
                 </div>
-                <div className='row  my-2'>
-                    <div className='col col-3'>
+                <div className='row my-2 flex-wrap'>
+                    <div className='col col-sm-3'>
                         <div typeof='button' onClick={handleImage} className='btn btn-primary regularButton'>
                             Generate Graph
                         </div>
                     </div>
-                    <div className='col col-2'></div>
-                    <div className='col col-2'>
+                    <div className='col col-sm-1'></div>
+                    <div className='col col-sm-3'>
                         <div typeof='button' className='btn btn-primary regularButton'>
                             Save
                         </div>
                     </div>
-                    <div className='col col-2'>
+                    <div className='col col-sm-1'></div>
+                    <div className='col col-sm-3'>
                         <div typeof='button' className='btn btn-primary regularButton'>
                             Download
                         </div>
                     </div>
-                    <div className='col col-2'></div>
+                    <div className='col col-sm-1'></div>
                 </div>
             </div>
         </div>
