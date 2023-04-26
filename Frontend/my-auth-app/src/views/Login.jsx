@@ -56,7 +56,7 @@ function Login() {
             }
             toast("Login successful!", toastOptions);
             setTimeout(() => {
-                navigate('/home') //navigate to home after after 2 seconds
+                navigate('/') //navigate to home after after 2 seconds
             }, 2000)
         } else {
             const toastOptions = {
