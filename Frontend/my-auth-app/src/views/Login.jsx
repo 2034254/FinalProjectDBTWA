@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import greenLogo from '../assets/greenLab.jpg';
+import './Login.css';
 
 function Login() {
 
@@ -54,7 +56,7 @@ function Login() {
             }
             toast("Login successful!", toastOptions);
             setTimeout(() => {
-                navigate('/home') //navigate to home after after 2 seconds
+                navigate('/') //navigate to home after after 2 seconds
             }, 2000)
         } else {
             const toastOptions = {
@@ -73,22 +75,33 @@ function Login() {
 
     return (
         <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label className='form-label' htmlFor="username">Username:</label>
-                    <input className='form-control' type="username" id="username" required onChange={(event) => handleInputChange('username', event.target.value)}/>
-                </div>
+            <div className='container'>
+                <span className='align-self-center' >
+                    <img src={greenLogo} alt="Green Lab" className='' />
+                </span>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className='row g-3 justify-content-center'>
+                        <div className='col-auto'>
+                            <label className='form-label' htmlFor="username">Username:</label>
+                            <input className='form-control' type="username" id="username" required onChange={(event) => handleInputChange('username', event.target.value)}/>
+                        </div>
+                    </div>
+                    <br />
+                    <div className='row g-3 justify-content-center'>
+                        <div className='col-auto'>
+                            <label className='form-label' htmlFor="password">Password:</label>
+                            <input className='form-control' type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)}/>
+                        </div>
+                    </div>
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
                 <br />
-                <label className='form-label' htmlFor="password">Password:</label>
-                <input className='form-control' type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)}/>
-                <br />
-                <button type="submit">Submit</button>
-            </form>
-            <br />
-            <button onClick={handleFormToggle}>
-                New User? Register Here
-            </button>
+                <button onClick={handleFormToggle}>
+                    New User? Register Here
+                </button>
+            </div>
             <ToastContainer />
         </div>
     )
