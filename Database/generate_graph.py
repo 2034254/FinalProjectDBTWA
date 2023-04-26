@@ -5,12 +5,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from mysql.connector import Error
-
 countries = sys.argv[1]
 graphType = sys.argv[2]
-
 countries = json.loads(countries)
-size = len(countries)
 
 import redshift_connector
 

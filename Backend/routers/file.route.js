@@ -4,14 +4,11 @@ const router = express.Router();
 const path = require('path');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
-<<<<<<< HEAD
 const { spawn } = require('child_process');
 const util = require('util');
 
 
 const spawnAsync = util.promisify(spawn);
-=======
->>>>>>> 0753a4a782e4eee9505513896873aae928ee690c
 
 
 router.get('/', (req, res) => {
@@ -21,7 +18,6 @@ router.get('/', (req, res) => {
 });
 
 
-<<<<<<< HEAD
 router.post('/file', async (req, res) => {
 	const graphType = req.body.type;
   
@@ -36,7 +32,6 @@ router.post('/file', async (req, res) => {
 	});
 });
 
-=======
 router.get('/file',async (req, res) => {
 
 
@@ -54,10 +49,4 @@ router.get('/file',async (req, res) => {
    
 });
 
-
-
-
-
-
->>>>>>> 0753a4a782e4eee9505513896873aae928ee690c
 module.exports = router;
