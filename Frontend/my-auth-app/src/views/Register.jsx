@@ -27,11 +27,9 @@ function Register() {
     function handleInputChange(key, newValue) {
         form[key] = newValue;   // ex: form["username"] = "toto";
         setForm(form);
-        console.log(form);
     }
 
     const handleSubmit = async (e) => {
-        console.log(form);
         e.preventDefault();
 
         const registerURL = 'http://localhost:8080/auth/register';
@@ -46,10 +44,8 @@ function Register() {
         const responseBody = await response.json();
 
         if (responseBody.message === 'Success.') {
-            toast.success("Success", toastOptions);
+            toast.success(responseBody.message, toastOptions);
         } else {
-            console.log('Error message:', responseBody.message);
-        
             toast.error(responseBody.message, toastOptions);
         }
     };

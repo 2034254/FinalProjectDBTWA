@@ -8,6 +8,7 @@ const cors = require('cors');
 
 const { standardAuth } = require('./middlewares/auth.middleware');
 
+const fileRouter = require('./routers/file.route');
 const authRouter = require('./routers/auth.route');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use('/auth', authRouter);
 
+app.use('/file', fileRouter);
 app.use(standardAuth);
 
 app.get('/', (req, res) => {
