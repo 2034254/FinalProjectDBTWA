@@ -25,28 +25,11 @@ router.post('/file', async (req, res) => {
   
 	const pythonScript = spawn('python', ['../Database/generate_graph.py', listString, graphType]);
 
-	const imagePath = path.join(__dirname, '../../Database/Pictures/co2_emission.png');
+	const imagePath = path.join(__dirname, `../../Database/Pictures/${graphType}.png`);
 
 	pythonScript.on('close', (code) => {
 		res.status(200).sendFile(imagePath);
 	});
-});
-
-router.get('/file',async (req, res) => {
-
-
-    try {
-        const { stdout } = await exec('python ../Database/co2_emission.py');
-        console.log(stdout);
-        const imagePath = path.join(__dirname, '../../Database/Pictures/co2_emission.png');
-  
-        res.status(200).sendFile(imagePath);
-
-      } catch (error) {
-        console.error(error);
-        res.status(500).send('Something went wrong');
-      }
-   
 });
 
 module.exports = router;
