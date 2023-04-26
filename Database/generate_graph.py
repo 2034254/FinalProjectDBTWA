@@ -43,7 +43,7 @@ co2Query = f'''
 co2_data = read_query(connection, co2Query)
 
 # Create a pandas DataFrame from the list
-df_co2_final = pd.DataFrame(co2_data, columns=['Entity', 'Annual CO₂ emissions', 'Year'])
+df_co2_final = pd.DataFrame(co2_data, columns=['Entity', graphType, 'Year'])
 
 # Creating Graph for comparing Canada All and Canada - Factory
 # df_canada_vs_canada_no_factory
@@ -61,7 +61,7 @@ with plt.style.context('Solarize_Light2'):
     co2_country = sns.lineplot(
         data=df_co2_final,
         x='Year',
-        y='Annual CO₂ emissions',
+        y=graphType,
         hue='Entity'
     )
 
