@@ -14,6 +14,14 @@ function Graph() {
     const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('C02');
     const [selectedOption2, setSelectedOption2] = useState('Per capita');
+    const [optionsDict, setOptionsDict] = useState({});
+
+    useEffect(() => {
+        const newOptionsDict = { option1: selectedOption, option2: selectedOption2 };
+        setOptionsDict(newOptionsDict);
+    }, [selectedOption, selectedOption2]);
+
+
 
     const handleSelect = (eventKey) => {
         setSelectedOption(eventKey);
@@ -45,6 +53,9 @@ function Graph() {
             //document.body.appendChild(img);
         }
     }
+
+
+
 
 
     // On component load -> check auth
@@ -79,7 +90,8 @@ function Graph() {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item eventKey="C02" className="my-dropdown-item">C02</Dropdown.Item>
-                                <Dropdown.Item eventKey="All GHGs" className="my-dropdown-item">All GHGs</Dropdown.Item>
+                                {//<Dropdown.Item eventKey="All GHGs" className="my-dropdown-item">All GHGs</Dropdown.Item>
+                                }
                                 <Dropdown.Item eventKey="Methane" className="my-dropdown-item">Methane</Dropdown.Item>
                                 <Dropdown.Item eventKey="Nitrous Oxide" className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
                             </Dropdown.Menu>
@@ -101,9 +113,9 @@ function Graph() {
                             <Dropdown.Menu>
                                 <Dropdown.Item eventKey="Per capita" className="my-dropdown-item">Per capita</Dropdown.Item>
                                 <Dropdown.Item eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
-                                <Dropdown.Item eventKey="Cumulative" className="my-dropdown-item">Cumulative</Dropdown.Item>
-                                <Dropdown.Item eventKey="Per MWh of Energy" className="my-dropdown-item">Per MWh of Energy</Dropdown.Item>
-                                <Dropdown.Item eventKey="Per $ of GDP" className="my-dropdown-item">Per $ of GDP</Dropdown.Item>
+                                {//<Dropdown.Item eventKey="Cumulative" className="my-dropdown-item">Cumulative</Dropdown.Item>
+                                }{//<Dropdown.Item eventKey="Per MWh of Energy" className="my-dropdown-item">Per MWh of Energy</Dropdown.Item>
+                                }<Dropdown.Item eventKey="Per $ of GDP" className="my-dropdown-item">Per $ of GDP</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
