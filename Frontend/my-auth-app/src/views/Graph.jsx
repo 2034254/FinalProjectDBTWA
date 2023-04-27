@@ -16,6 +16,8 @@ function Graph() {
     const [selectedOption2, setSelectedOption2] = useState('Per capita');
     const [optionsDict, setOptionsDict] = useState({});
 
+    const [selectedCountries, setSelectedCountries] = useState([]);
+
     useEffect(() => {
         const newOptionsDict = { option1: selectedOption, option2: selectedOption2 };
         setOptionsDict(newOptionsDict);
@@ -27,6 +29,20 @@ function Graph() {
         setSelectedOption(eventKey);
     };
 
+    {/*const handleSelect = (eventKey) => {
+    setSelectedOption(eventKey);
+    if (eventKey === "Methane" || eventKey === "Nitrous Oxide") {
+        setSelectedOption2("Per country");
+        document.getElementById("flexCheckDefault").disabled = true;
+    } else if (eventKey === "C02") {
+        setSelectedOption2("Per county");
+        setSelectedOption2("Per capita");
+        setSelectedOption2("Per $ of GDP");
+        document.getElementById("flexCheckDefault").disabled = false;
+    }
+};
+*/ }
+
     const handleSelect2 = (eventKey) => {
         setSelectedOption2(eventKey);
     };
@@ -36,7 +52,14 @@ function Graph() {
 
         const loginURL = 'http://localhost:8080/file/file';
         const options = {
-            method: 'GET',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                countries: selectedCountries,
+                options: optionsDict,
+              }),
 
         }
         const response = await fetch(loginURL, options);
@@ -53,6 +76,18 @@ function Graph() {
             //document.body.appendChild(img);
         }
     }
+
+
+
+
+    const handleCountryChange = (e) => {
+      const country = e.target.value;
+      if (e.target.checked) {
+        setSelectedCountries([...selectedCountries, country]);
+      } else {
+        setSelectedCountries(selectedCountries.filter(c => c !== country));
+      }
+    };
 
 
 
@@ -99,7 +134,7 @@ function Graph() {
                     </div>
                     <div className="col order-5 d-flex">
                         <div className="form-check align-self-center">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled/>
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Relative to world total
                             </label>
@@ -123,22 +158,28 @@ function Graph() {
                 <div className='row my-2 d-flex'>
                     <div className='col col-2  px-0'>
                         <ul className='text-left'>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Argentina</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Australia</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Brazil</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Canada</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />China</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />France</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Germany</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />India</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Indonesia</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Japan</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Mexico</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Russia</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />Ukraine</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />United Kingdom</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />United States</li>
-                            <li className='checkBoxHigh text-left'><input type="checkbox" />World</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox"  onChange={handleCountryChange} value='Argentina'/>Argentina</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Australia'/>Australia</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Brazil'/>Brazil</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Canada'/>Canada</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='China'/>China</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Europe'/>Europe</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='France'/>France</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Germany'/>Germany</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Italy'/>Italy</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='India'/>India</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Indonesia'/>Indonesia</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Japan'/>Japan</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Mexico'/>Mexico</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Russia'/>Russia</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Saudi Arabia'/>Saudi Arabia</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='South Africa'/>South Africa</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='South Korea'/>South Korea</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Turkey'/>Turkey</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='Ukraine'/>Ukraine</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='United Kingdom'/>United Kingdom</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='United States'/>United States</li>
+                            <li className='checkBoxHigh text-left'><input type="checkbox" onChange={handleCountryChange} value='World'/>World</li>
                         </ul>
                     </div>
                     <div className='col col-2'></div>
