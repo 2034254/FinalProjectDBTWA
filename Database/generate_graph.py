@@ -58,17 +58,18 @@ graph_values = {
     'annual_co₂_emissions': {
         
         'ylabel': 'Billions Tonnes of CO₂',
-        'title': 'Annual CO₂ Emissions (1950 - 2021)'
+        'title': 'Annual CO₂ Emissions (1950 - 2018)',
+        
     },
     'per_gdp_co2': {
         
         'ylabel': 'Billions Tonnes of CO₂ per $ of GDP',
-        'title': 'Carbon Emissions intensity of economies (1950 - 2021)'
+        'title': 'Carbon Emissions intensity of economies (1950 - 2018)'
     },
     'annual_nitrous_oxide_emissions': {
         
         'ylabel': 'Billions Tonnes of Nitrous Oxide',
-        'title': 'Annual Nitrous Oxide emmissions (1950 - 2021)'
+        'title': 'Annual Nitrous Oxide emmissions (1950 - 2018)'
     },
     'annual_methane_emissions': {
         
@@ -83,7 +84,7 @@ graph_values = {
     'c02_emmissions_worldtotal': {
         
         'ylabel': 'Percentage of CO₂ Emissions',
-        'title': 'Annual share of gloabl CO₂ emmissions (1950 - 2021)'
+        'title': 'Annual share of gloabl CO₂ emmissions (1950 - 2018)'
     }
 }
 
@@ -100,7 +101,7 @@ with plt.style.context('Solarize_Light2'):
 
     #plt.xticks(range(1750,2021), range(1750,2021))
 
-    axs.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'{x / 10**9:.0f}'))
+    #axs.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'{x / 10**9:.0f}'))
 
     co2_country = sns.lineplot(
         data=df_co2_final,

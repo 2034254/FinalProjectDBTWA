@@ -10,41 +10,52 @@ function Graph() {
 
     const [username, setUserName] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [xyz, setImage] = useState("");
+    const [imageToSend, setImage] = useState("");
     const navigate = useNavigate();
-    const [selectedOption, setSelectedOption] = useState('C02');
-    const [selectedOption2, setSelectedOption2] = useState('Per country');
+    const [firstMenuText, setFirstMenuText] = useState('C02');
+    const [secondMenuText, setSecondMenuText] = useState('Per country');
+
 
     const [optionsDict, setOptionsDict] = useState({});
 
+    useEffect(() => {
+        setSelectedGraph("annual_co₂_emissions");
+      }, []);
+    
     const [selectedCountries, setSelectedCountries] = useState([]);
+    console.log('selectedCountries: ', selectedCountries);
     const [selectedGraph, setSelectedGraph] = useState([]);
+    
+    
+   
+    console.log('selectedGraph: ', selectedGraph);
 
     const [isDisabled, setIsDisabled] = useState(false);
-    
+    const [isDisabled2, setIsDisabled2] = useState(false);
     const [isRelative, setIsRelative] = useState(false);
 
     // This code sets up a useEffect hook that updates the optionsDict whenever the selected graph or selected countries changes. 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const newOptionsDict = { graphType: selectedGraph, country: selectedCountries };
+    //     const newOptionsDict = { graphType: selectedGraph, country: selectedCountries };
 
-        setOptionsDict(newOptionsDict);
+    //     setOptionsDict(newOptionsDict);
 
-        console.log('newOptionsDict: ', newOptionsDict);
+    //     console.log('newOptionsDict: ', newOptionsDict);
 
-    }, [selectedGraph, selectedCountries]);
+    // }, [selectedGraph, selectedCountries]);
+
+      
 
 
 
-
-    const handleSelect = (eventKey) => {
-        setSelectedOption(eventKey);
+    const handleFirstMenuText = (eventKey) => {
+        setFirstMenuText(eventKey);
         if (eventKey === "Methane") {
             setSelectedGraph("annual_methane_emissions");
             document.getElementById("flexCheckDefault").disabled = true;
-            handleSelect2("Per country");
+            handleSecondMenuText("Per country");
             setIsDisabled(true)
             setIsRelative(false)
 
@@ -59,23 +70,23 @@ function Graph() {
         } else if (eventKey === "Nitrous Oxide") {
             setSelectedGraph("annual_nitrous_oxide_emissions");
             document.getElementById("flexCheckDefault").disabled = true;
-            handleSelect2("Per country");
+            handleSecondMenuText("Per country");
             setIsDisabled(true)
             setIsRelative(false)
         }
     };
 
 
-    const handleSelect2 = (eventKey) => {
+    const handleSecondMenuText = (eventKey) => {
 
-        setSelectedOption2(eventKey);
+        setSecondMenuText(eventKey);
 
         if (eventKey == "Per capita") {
             setSelectedGraph("per_capita_co2");
         } else if (eventKey == "Per $ of GDP") {
             setSelectedGraph("per_gdp_co2");
         } else if (eventKey == "Per country") {
-            if(selectedOption=="C02"){
+            if(firstMenuText=="C02"){
                 setSelectedGraph("annual_co₂_emissions");}
             
         }
@@ -85,9 +96,20 @@ function Graph() {
     const handleCheckboxChange = (event) => {
       setIsRelative(event.target.checked);
       console.log('isRelative: ', isRelative);
-      
-        setIsDisabled(true)
-        setSelectedGraph('c02_emmissions_worldtotal')
+      if(!isRelative){
+
+          setSecondMenuText("Per country")
+            setIsDisabled(true)
+            setIsDisabled2(true)
+            setSelectedGraph('c02_emmissions_worldtotal')
+
+      } else{
+
+
+                setIsDisabled2(false)
+                setIsDisabled(false)
+                setSelectedGraph('annual_co₂_emissions')
+      } 
       // Do something else based on the value of `event.target.checked`
     };
 
@@ -169,15 +191,15 @@ function Graph() {
                 <div className="container-fluid">
                     <div className="row my-2">
                         <div className="col">
-                            <Dropdown onSelect={handleSelect} >
+                            <Dropdown onSelect={handleFirstMenuText} >
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" className="custom-dropdown">
-                                    {selectedOption}
+                                    {firstMenuText}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu >
                                     <Dropdown.Item eventKey="C02" className="my-dropdown-item">C02</Dropdown.Item>
 
-                                    <Dropdown.Item eventKey="Methane" className="my-dropdown-item">Methane</Dropdown.Item>
-                                    <Dropdown.Item eventKey="Nitrous Oxide" className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Methane" disabled={isDisabled2} className="my-dropdown-item">Methane</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Nitrous Oxide" disabled={isDisabled2} className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -190,9 +212,9 @@ function Graph() {
                             </div>
                         </div>
                         <div className="col order-1">
-                            <Dropdown id="drop_down_2" onSelect={handleSelect2} >
+                            <Dropdown id="drop_down_2" onSelect={handleSecondMenuText} >
                                 <Dropdown.Toggle variant="success" id="dropdown-basic2" className="custom-dropdown">
-                                    {selectedOption2}
+                                    {secondMenuText}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
@@ -232,7 +254,7 @@ function Graph() {
                         <div className='col col-2'></div>
                         <div className='col col-8 col-md-6 px-0 d-flex align-items-center justify-content-center mx-auto'  >
                             <span className='align-self-center mx-auto' >
-                                <img src={xyz} alt="" className='imageSize' style={{ maxWidth: "100%", minWidth: "10%" }} />
+                                <img src={imageToSend} alt="" className='imageSize' style={{ maxWidth: "100%", minWidth: "10%" }} />
                             </span>
                         </div>
                     </div>
