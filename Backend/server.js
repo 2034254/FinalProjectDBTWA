@@ -19,8 +19,8 @@ app.use(cors());
 
 app.use('/auth', authRouter);
 
-app.use('/file', fileRouter);
 app.use(standardAuth);
+app.use('/file', fileRouter);
 
 app.get('/', (req, res) => {
     res.status(200).send({

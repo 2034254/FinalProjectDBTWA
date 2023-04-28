@@ -1,22 +1,14 @@
 const express = require('express');
-const router = express.Router();
- 
 const path = require('path');
-const { promisify } = require('util');
-const exec = promisify(require('child_process').exec);
 const { spawn } = require('child_process');
-const util = require('util');
 
-
-const spawnAsync = util.promisify(spawn);
-
+const router = express.Router();
 
 router.get('/', (req, res) => {
     res.status(200).send({
         message: 'File route is working.',
     });
 });
-
 
 router.post('/file', async (req, res) => {
 	const graphType = req.body.graphType;
