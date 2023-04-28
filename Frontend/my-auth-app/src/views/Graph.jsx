@@ -16,10 +16,10 @@ function Graph() {
     const [secondMenuText, setSecondMenuText] = useState('Per country');
 
 
-    const [optionsDict, setOptionsDict] = useState({});
+    //const [optionsDict, setOptionsDict] = useState({});
 
     useEffect(() => {
-        setSelectedGraph("annual_co₂_emissions");
+        setSelectedGraph("annual_co2_emissions");
       }, []);
     
     const [selectedCountries, setSelectedCountries] = useState([]);
@@ -61,7 +61,7 @@ function Graph() {
 
 
         } else if (eventKey === "C02") {
-            setSelectedGraph("annual_co₂_emissions");
+            setSelectedGraph("annual_co2_emissions");
             document.getElementById("flexCheckDefault").disabled = false;
             setIsDisabled(false)
 
@@ -73,6 +73,13 @@ function Graph() {
             handleSecondMenuText("Per country");
             setIsDisabled(true)
             setIsRelative(false)
+        }else if(eventKey==="Greenhouse gas"){
+            setSelectedGraph("annual_greenhouse_gas_emissions");
+            document.getElementById("flexCheckDefault").disabled = true;
+            handleSecondMenuText("Per country");
+            setIsDisabled(true)
+            setIsRelative(false)
+
         }
     };
 
@@ -87,9 +94,13 @@ function Graph() {
             setSelectedGraph("per_gdp_co2");
         } else if (eventKey == "Per country") {
             if(firstMenuText=="C02"){
-                setSelectedGraph("annual_co₂_emissions");}
+                setSelectedGraph("annual_co2_emissions");}
             
-        }
+        }else if(eventKey=="CO2 amount in GHG"){
+            setSelectedGraph("co2_from_greenhouse_emissions");
+    }
+    
+    
     }
 
 
@@ -108,7 +119,7 @@ function Graph() {
 
                 setIsDisabled2(false)
                 setIsDisabled(false)
-                setSelectedGraph('annual_co₂_emissions')
+                setSelectedGraph('annual_co2_emissions')
       } 
       // Do something else based on the value of `event.target.checked`
     };
@@ -200,6 +211,8 @@ function Graph() {
 
                                     <Dropdown.Item eventKey="Methane" disabled={isDisabled2} className="my-dropdown-item">Methane</Dropdown.Item>
                                     <Dropdown.Item eventKey="Nitrous Oxide" disabled={isDisabled2} className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
+                                    
+                                    <Dropdown.Item eventKey="Greenhouse gas" disabled={isDisabled2} className="my-dropdown-item">Greenhouse gas</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -217,9 +230,11 @@ function Graph() {
                                     {secondMenuText}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
+                                    <Dropdown.Item disabled={isDisabled}eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
                                     <Dropdown.Item id="per_capita" eventKey="Per capita" className="my-dropdown-item" disabled={isDisabled}>Per capita</Dropdown.Item>
                                     <Dropdown.Item id="per_gdp" eventKey="Per $ of GDP" className="my-dropdown-item" disabled={isDisabled}>Per $ of GDP</Dropdown.Item>
+                                    
+                                    <Dropdown.Item id="co2_per_ghg" eventKey="CO2 amount in GHG" className="my-dropdown-item" disabled={isDisabled}>CO2 amount in GHG</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
