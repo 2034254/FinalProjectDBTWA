@@ -194,6 +194,23 @@ function Graph() {
             }
         }, [])
 
+        const handleSave = () => {
+            const saveUrl = 'http://localhost:8080/file/save';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    graph: {
+                        countries: selectedCountries,
+                        graphType: selectedGraph,
+                    }
+                }),
+                
+            }
+        }
+
         return (
             <div style={{ width: "100%" }}>
 
