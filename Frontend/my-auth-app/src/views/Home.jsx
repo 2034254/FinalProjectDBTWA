@@ -35,6 +35,36 @@ function Home() {
         navigate('/login');
     }
 
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+    
+        const loginURL = 'http://localhost:8080/file/file';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                countries: selectedCountries,
+                graphType: selectedGraph,
+            }),
+    
+        }
+        const response = await fetch(loginURL, options);
+        console.log('response.status: ', response.status);
+    
+        if (response.status == 200) {
+            const blob = await response.blob();
+            const imgUrl = URL.createObjectURL(blob);
+            //console.log('imgUrl: ', imgUrl);
+    
+            // Open the image in a new tab
+            window.open(imgUrl);
+        }
+    }
+
     return(
         <div>
             <h1>Home</h1>
@@ -42,15 +72,43 @@ function Home() {
             
             <div> 
                 <Link to='/graph'>
-                    <button className='btn btn-success'>
+                    <button className='btn btn-success my-2'>
                         Graph
                     </button>
                 </Link>   
             </div> 
-            <button className='btn btn-success' onClick={handleLogout}>
+
+            <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}}>
+                <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
+                    <div className='col col-4'></div>
+                    <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
+                    <div className='col col-4'>
+                        <button className='my-1 mx-1'>Consult</button>
+                        <button className='my-1 mx-1'>Delete</button>
+                    </div>
+                </div>
+                <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
+                    <div className='col col-4'></div>
+                    <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
+                    <div className='col col-4'>
+                        <button className='my-1 mx-1'>Consult</button>
+                        <button className='my-1 mx-1'>Delete</button>
+                    </div>
+                </div>
+                <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
+                    <div className='col col-4'></div>
+                    <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
+                    <div className='col col-4'>
+                        <button className='my-1 mx-1'>Consult</button>
+                        <button className='my-1 mx-1'>Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <button className='btn btn-success my-2' onClick={handleLogout}>
                 Logout
             </button>
-        </div>
+            </div>
     )
 }
 
