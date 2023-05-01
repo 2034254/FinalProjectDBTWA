@@ -8,7 +8,8 @@ const { client } = require('../database/database.js');
 const router = express.Router();
 
 const database = client.db('finalproject');
-const collection = database.collection('users');
+const userCollection = database.collection('users');
+const graphCollection = database.collection('graphs');
 
 router.get('/', (req, res) => {
     res.status(200).send({
@@ -34,27 +35,23 @@ router.post('/file', async (req, res) => {
 
 router.post('/save', async (req, res) => {
 	const token = req.headers.authorization;
-	const graph = req.body.graph;
+	const body = req.body;
 
 	const decodedToken = jwt_decode(token);
 
-	const username = decodedToken.username;
-
-	const filter = {username: username}
-	const update = { $push: { graphs: graph} };
-	const options = { upsert: true };
+	const userId = decodedToken.userId;
 	
-	try {		
-		const result = await collection.updateOne(filter, update, options);
-		console.log(`${result.modifiedCount} document(s) updated`);
-		res.status(200).send({
-			message: 'Success.',
-		});
-	} catch {
-		res.status(400).send({
-			message: 'Something went wrong.'
-		});
-	}
+	const result = await graphCollection.insertOne({
+		userId: userId,
+        name: body.name,
+        countries: body.countries,
+        graphType: body.graphType,
+		date: body.date
+    });
+
+	res.status(201).send({
+        message: 'Success.'
+    });
 });
 
 module.exports = router;
