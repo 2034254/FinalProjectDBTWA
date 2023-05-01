@@ -12,7 +12,7 @@ function Graph() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [imageToSend, setImage] = useState("");
     const navigate = useNavigate();
-    const [firstMenuText, setFirstMenuText] = useState('C02');
+    const [firstMenuText, setFirstMenuText] = useState('CO2');
     const [secondMenuText, setSecondMenuText] = useState('Per country');
 
 
@@ -23,8 +23,9 @@ function Graph() {
     }, []);
 
     const [selectedCountries, setSelectedCountries] = useState([]);
+
     console.log('selectedCountries: ', selectedCountries);
-    const [selectedGraph, setSelectedGraph] = useState([]);
+    const [selectedGraph, setSelectedGraph] = useState('annual_co2_emissions');
 
 
 
@@ -50,7 +51,7 @@ function Graph() {
     useEffect(() => {
         // Verify auth
         const token = localStorage.getItem('token');
-        if(!token) {
+        if (!token) {
             navigate('/login');
             return
         } try {
@@ -61,7 +62,7 @@ function Graph() {
                 return;
             }
             setUserName(decodedToken.username);
-        } catch(err) {
+        } catch (err) {
             console.error(err);
             navigate('/login');
             return
@@ -73,50 +74,54 @@ function Graph() {
         navigate('/login');
     }
 
+    function disableSecondMenu() {
+        document.getElementById("flexCheckDefault").disabled = true;
+        handleSecondMenuText("Per country");
+        setIsDisabled(true)
+        setChecked(false)
+
+    }
+
+    function enableSecondMenu() {
+        document.getElementById("flexCheckDefault").disabled = false;
+        setIsDisabled(false)
+        setChecked(false)
+        handleSecondMenuText("Per country");
+    }
+
+    function disableFirstMenu(){
+        setIsDisabled2(true)
+        document.getElementById("flexCheckDefault").disabled = true;
+
+    }
+    function enableFirstMenu(){
+        setIsDisabled2(false)
+        document.getElementById("flexCheckDefault").disabled = false;
+    }
 
     const handleFirstMenuText = (eventKey) => {
         setFirstMenuText(eventKey);
         if (eventKey === "Methane") {
+            console.log("methane");
             setSelectedGraph("annual_methane_emissions");
-            document.getElementById("flexCheckDefault").disabled = true;
-            handleSecondMenuText("Per country");
-            setIsDisabled(true)
-            setChecked(false)
-
-
-        } else if (eventKey === "C02") {
+            disableSecondMenu();
+        } else if (eventKey === "CO2") {
             document.getElementById("flexCheckDefault").disabled = false;
             if (!checked) {
-                console.log('checked: ', checked);
-                setSecondMenuText("Per country")
-                setIsDisabled(true)
-                setIsDisabled2(true)
-                setSelectedGraph('c02_emmissions_worldtotal')
-            } else if (checked) {
-
+                //console.log('checked: ', checked);
+                enableSecondMenu();
                 setSelectedGraph("annual_co2_emissions");
-                document.getElementById("flexCheckDefault").disabled = false;
-                setIsDisabled(false)
+            } else if (checked) {
                 setSecondMenuText("Per country")
-
-
+                setSelectedGraph('c02_emmissions_worldtotal')
+                disableSecondMenu();
             }
-
-
-
         } else if (eventKey === "Nitrous Oxide") {
             setSelectedGraph("annual_nitrous_oxide_emissions");
-            document.getElementById("flexCheckDefault").disabled = true;
-            handleSecondMenuText("Per country");
-            setIsDisabled(true)
-            setChecked(false)
+            disableSecondMenu();
         } else if (eventKey === "Greenhouse gas") {
             setSelectedGraph("annual_greenhouse_gas_emissions");
-            document.getElementById("flexCheckDefault").disabled = true;
-            handleSecondMenuText("Per country");
-            setIsDisabled(true)
-            setChecked(false)
-
+            disableSecondMenu();
         }
     };
 
@@ -126,16 +131,25 @@ function Graph() {
         setSecondMenuText(eventKey);
 
         if (eventKey == "Per capita") {
+            disableFirstMenu();
             setSelectedGraph("per_capita_co2");
+           
         } else if (eventKey == "Per $ of GDP") {
+            disableFirstMenu();
             setSelectedGraph("per_gdp_co2");
+           
         } else if (eventKey == "Per country") {
-            if (firstMenuText == "C02") {
+            
+            if(selectedGraph == "per_gdp_co2" || selectedGraph == "per_capita_co2" || selectedGraph == "co2_from_greenhouse_emissions"){
+               enableFirstMenu();
                 setSelectedGraph("annual_co2_emissions");
+               document.getElementById("flexCheckDefault").disabled = false;
             }
 
         } else if (eventKey == "CO2 amount in GHG") {
+            disableFirstMenu();
             setSelectedGraph("co2_from_greenhouse_emissions");
+           
         }
 
 
@@ -215,23 +229,6 @@ function Graph() {
 
 
 
-    // // On component load -> check auth
-    // useEffect(() => {
-    //     // Verify auth
-    //     const token = localStorage.getItem('token');
-    //     if (!token) {
-    //         navigate('/login');
-    //         return
-    //     } try {
-    //         const decodedToken = jwt_decode(token);
-    //         setUserName(decodedToken.username);
-    //         setIsAdmin(decodedToken.isAdmin);
-    //     } catch (err) {
-    //         console.error(err);
-    //         navigate('/login');
-    //         return
-    //     }
-    // }, [])
 
     const handleSave = () => {
         const saveUrl = 'http://localhost:8080/file/save';
@@ -263,7 +260,7 @@ function Graph() {
                                 {firstMenuText}
                             </Dropdown.Toggle>
                             <Dropdown.Menu >
-                                <Dropdown.Item eventKey="C02" disabled={isDisabled2} className="my-dropdown-item">C02</Dropdown.Item>
+                                <Dropdown.Item eventKey="CO2" disabled={isDisabled2} className="my-dropdown-item">CO2</Dropdown.Item>
 
                                 <Dropdown.Item eventKey="Methane" disabled={isDisabled2} className="my-dropdown-item">Methane</Dropdown.Item>
                                 <Dropdown.Item eventKey="Nitrous Oxide" disabled={isDisabled2} className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
