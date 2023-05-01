@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import jwt_decode from 'jwt-decode';
 import 'react-toastify/dist/ReactToastify.css';
 const toastOptions = {
     position: "top-right",
@@ -49,6 +51,24 @@ function Register() {
             toast.error(responseBody.message, toastOptions);
         }
     };
+
+    useEffect(() => {
+        // Verify auth
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decodedToken = jwt_decode(token);
+                const currentTime = Date.now() / 1000;
+                if (decodedToken.exp >= currentTime) {
+                    navigate('/');
+                    return
+                }
+            } catch(err) {
+                console.error(err);
+                return
+            }
+        }
+    }, [])
 
     return(
         <div>
