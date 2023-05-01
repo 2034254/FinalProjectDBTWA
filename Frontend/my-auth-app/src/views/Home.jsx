@@ -32,6 +32,8 @@ function Home() {
         }
         
         async function fetchGraphs() {
+            const decodedToken = jwt_decode(token);
+            console.log('decodedToken: ', decodedToken);
             const url = 'http://localhost:8080/files/graphs/' + `?user_id=${decodedToken.userId}`;
       
             const response = await fetch(url);
