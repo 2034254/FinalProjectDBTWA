@@ -41,10 +41,11 @@ router.post('/save', async (req, res) => {
 	const username = decodedToken.username;
 
 	const filter = {username: username}
-	const update = { $set: { graph: graph} };
+	const update = { $push: { graphs: graph} };
+	const options = { upsert: true };
 	
 	try {		
-		const result = await collection.updateOne(filter, update);
+		const result = await collection.updateOne(filter, update, options);
 		console.log(`${result.modifiedCount} document(s) updated`);
 		res.status(200).send({
 			message: 'Success.',
