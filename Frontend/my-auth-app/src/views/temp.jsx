@@ -16,10 +16,10 @@ function Graph() {
     const [secondMenuText, setSecondMenuText] = useState('Per country');
 
 
-    //const [optionsDict, setOptionsDict] = useState({});
+    const [optionsDict, setOptionsDict] = useState({});
 
     useEffect(() => {
-        setSelectedGraph("annual_co2_emissions");
+        setSelectedGraph("annual_co₂_emissions");
     }, []);
 
     const [selectedCountries, setSelectedCountries] = useState([]);
@@ -32,7 +32,7 @@ function Graph() {
 
     const [isDisabled, setIsDisabled] = useState(false);
     const [isDisabled2, setIsDisabled2] = useState(false);
-    const [checked, setChecked] = useState(false);
+    const [isRelative, setIsRelative] = useState(false);
 
     // This code sets up a useEffect hook that updates the optionsDict whenever the selected graph or selected countries changes. 
 
@@ -57,26 +57,13 @@ function Graph() {
             document.getElementById("flexCheckDefault").disabled = true;
             handleSecondMenuText("Per country");
             setIsDisabled(true)
-            setChecked(false)
+            setIsRelative(false)
 
 
         } else if (eventKey === "C02") {
+            setSelectedGraph("annual_co₂_emissions");
             document.getElementById("flexCheckDefault").disabled = false;
-            if (!checked) {
-                console.log('checked: ', checked);
-                setSecondMenuText("Per country")
-                setIsDisabled(true)
-                setIsDisabled2(true)
-                setSelectedGraph('c02_emmissions_worldtotal')
-            } else if (checked) {
-
-                setSelectedGraph("annual_co2_emissions");
-                document.getElementById("flexCheckDefault").disabled = false;
-                setIsDisabled(false)
-                setSecondMenuText("Per country")
-
-
-            }
+            setIsDisabled(false)
 
 
 
@@ -85,14 +72,7 @@ function Graph() {
             document.getElementById("flexCheckDefault").disabled = true;
             handleSecondMenuText("Per country");
             setIsDisabled(true)
-            setChecked(false)
-        } else if (eventKey === "Greenhouse gas") {
-            setSelectedGraph("annual_greenhouse_gas_emissions");
-            document.getElementById("flexCheckDefault").disabled = true;
-            handleSecondMenuText("Per country");
-            setIsDisabled(true)
-            setChecked(false)
-
+            setIsRelative(false)
         }
     };
 
@@ -107,33 +87,29 @@ function Graph() {
             setSelectedGraph("per_gdp_co2");
         } else if (eventKey == "Per country") {
             if (firstMenuText == "C02") {
-                setSelectedGraph("annual_co2_emissions");
+                setSelectedGraph("annual_co₂_emissions");
             }
 
-        } else if (eventKey == "CO2 amount in GHG") {
-            setSelectedGraph("co2_from_greenhouse_emissions");
         }
-
-
     }
 
 
     const handleCheckboxChange = (event) => {
-        setChecked(event.target.checked);
-        //console.log('checked: ', checked);
-        if (!checked) {
-            console.log("checked")
+        setIsRelative(event.target.checked);
+        console.log('isRelative: ', isRelative);
+        if (!isRelative) {
+
             setSecondMenuText("Per country")
             setIsDisabled(true)
             setIsDisabled2(true)
             setSelectedGraph('c02_emmissions_worldtotal')
 
         } else {
-            console.log("unchecked")
+
 
             setIsDisabled2(false)
             setIsDisabled(false)
-            setSelectedGraph('annual_co2_emissions')
+            setSelectedGraph('annual_co₂_emissions')
         }
         // Do something else based on the value of `event.target.checked`
     };
@@ -149,7 +125,6 @@ function Graph() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': localStorage.getItem('token')
             },
             body: JSON.stringify({
                 countries: selectedCountries,
@@ -191,23 +166,27 @@ function Graph() {
 
 
 
-    // // On component load -> check auth
-    // useEffect(() => {
-    //     // Verify auth
-    //     const token = localStorage.getItem('token');
-    //     if (!token) {
-    //         navigate('/login');
-    //         return
-    //     } try {
-    //         const decodedToken = jwt_decode(token);
-    //         setUserName(decodedToken.username);
-    //         setIsAdmin(decodedToken.isAdmin);
-    //     } catch (err) {
-    //         console.error(err);
-    //         navigate('/login');
-    //         return
-    //     }
-    // }, [])
+    // On component load -> check auth
+    useEffect(() => {
+        // Verify auth
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return
+        } try {
+            const decodedToken = jwt_decode(token);
+            const currentTime = Date.now() / 1000;
+            if (decodedToken.exp < currentTime) {
+                navigate('/login');
+                return;
+            }
+            setUserName(decodedToken.username);
+        } catch (err) {
+            console.error(err);
+            navigate('/login');
+            return
+        }
+    }, [])
 
     const handleSave = () => {
         const saveUrl = 'http://localhost:8080/file/save';
@@ -222,7 +201,7 @@ function Graph() {
                     graphType: selectedGraph,
                 }
             }),
-
+            
         }
     }
 
@@ -239,18 +218,16 @@ function Graph() {
                                 {firstMenuText}
                             </Dropdown.Toggle>
                             <Dropdown.Menu >
-                                <Dropdown.Item eventKey="C02" disabled={isDisabled2} className="my-dropdown-item">C02</Dropdown.Item>
+                                <Dropdown.Item eventKey="C02" className="my-dropdown-item">C02</Dropdown.Item>
 
                                 <Dropdown.Item eventKey="Methane" disabled={isDisabled2} className="my-dropdown-item">Methane</Dropdown.Item>
                                 <Dropdown.Item eventKey="Nitrous Oxide" disabled={isDisabled2} className="my-dropdown-item">Nitrous Oxide</Dropdown.Item>
-
-                                <Dropdown.Item eventKey="Greenhouse gas" disabled={isDisabled2} className="my-dropdown-item">Greenhouse gas</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
                     <div className="col order-5 d-flex">
                         <div className="form-check align-self-center">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={checked} onChange={handleCheckboxChange} />
+                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={isRelative} onChange={handleCheckboxChange} />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Relative to world total
                             </label>
@@ -262,11 +239,9 @@ function Graph() {
                                 {secondMenuText}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item disabled={isDisabled} eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
+                                <Dropdown.Item eventKey="Per country" className="my-dropdown-item">Per country</Dropdown.Item>
                                 <Dropdown.Item id="per_capita" eventKey="Per capita" className="my-dropdown-item" disabled={isDisabled}>Per capita</Dropdown.Item>
                                 <Dropdown.Item id="per_gdp" eventKey="Per $ of GDP" className="my-dropdown-item" disabled={isDisabled}>Per $ of GDP</Dropdown.Item>
-
-                                <Dropdown.Item id="co2_per_ghg" eventKey="CO2 amount in GHG" className="my-dropdown-item" disabled={isDisabled}>CO2 amount in GHG</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
@@ -313,7 +288,7 @@ function Graph() {
                     </div>
                     <div className='col col-sm-1'></div>
                     <div className='col col-sm-3'>
-                        <div typeof='button' onClick={handleSave} className='btn btn-primary regularButton'>
+                        <div typeof='button' className='btn btn-primary regularButton' onClick={handleSave}>
                             Save
                         </div>
                     </div>
