@@ -54,4 +54,14 @@ router.post('/save', async (req, res) => {
     });
 });
 
+router.post('/graphs', async (req, res) => {
+
+graphCollection.find({user_id: req.query.user_id})
+const documents = await cursor.toArray();
+console.log('documents: ', documents);
+res.send({ documents });
+
+})
+
+
 module.exports = router;
