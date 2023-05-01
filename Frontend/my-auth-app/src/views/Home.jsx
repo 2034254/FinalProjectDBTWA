@@ -2,9 +2,11 @@ import React, { useEffect, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './home.css';
+import GraphSummary from '../components/GraphSummary'
 
 function Home() {
 
+    const [graph, setGraph] = useState([]);
     const [username, setUserName] = useState(null);
     const navigate = useNavigate();
 
@@ -28,6 +30,18 @@ function Home() {
             navigate('/login');
             return
         }
+        
+        async function fetchGraphs() {
+            const url = 'http://localhost:8080/files/graphs/' + `?user_id=${decodedToken.userId}`;
+      
+            const response = await fetch(url);
+            if (response.status == 200) {
+              const data = await response.json();
+              setGraph(data.documents);
+            }
+          }
+
+        fetchGraphs();
     }, [])
 
     const handleLogout = () => {
@@ -77,8 +91,14 @@ function Home() {
                     </button>
                 </Link>   
             </div> 
-
-            <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}}>
+            {
+                graph.map((graphData, index) => {
+                    return <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}} key={index}>
+                        <GraphSummary title={graphData.name} />
+                    </div>
+                })
+            }
+                {/*
                 <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
                     <div className='col col-4'></div>
                     <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
@@ -103,7 +123,7 @@ function Home() {
                         <button className='my-1 mx-1'>Delete</button>
                     </div>
                 </div>
-            </div>
+                */}
 
             <button className='btn btn-success my-2' onClick={handleLogout}>
                 Logout
