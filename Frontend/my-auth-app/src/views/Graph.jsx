@@ -233,21 +233,26 @@ function Graph() {
     //     }
     // }, [])
 
-    const handleSave = () => {
+    const handleSave = async (e) => {
+        e.preventDefault();
         const saveUrl = 'http://localhost:8080/file/save';
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'authorization': localStorage.getItem('token')
             },
             body: JSON.stringify({
                 graph: {
                     countries: selectedCountries,
                     graphType: selectedGraph,
+                    date: new Date().toLocaleDateString()
                 }
             }),
 
         }
+        const response = await fetch(saveUrl, options);
+        console.log('response.status: ', response.status);
     }
 
     return (
