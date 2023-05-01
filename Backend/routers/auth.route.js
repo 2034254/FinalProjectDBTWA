@@ -137,7 +137,8 @@ router.post('/login', async (req, res) => {
     }
 
     const payload = {
-        username: user.username,        
+        userId: user._id,
+        username: user.username,
         email: user.email,
         dob: user.dob
     };

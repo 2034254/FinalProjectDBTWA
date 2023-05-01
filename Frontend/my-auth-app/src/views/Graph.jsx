@@ -232,6 +232,15 @@ function Graph() {
 
     const handleSave = async (e) => {
         e.preventDefault();
+
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
+        const date = `${year}-${month}-${day}`
+        
+                    const name = 'Graph'
+
         const saveUrl = 'http://localhost:8080/file/save';
         const options = {
             method: 'POST',
@@ -240,11 +249,10 @@ function Graph() {
                 'authorization': localStorage.getItem('token')
             },
             body: JSON.stringify({
-                graph: {
-                    countries: selectedCountries,
-                    graphType: selectedGraph,
-                    date: new Date().toLocaleDateString()
-                }
+                name: name,
+                countries: selectedCountries,
+                graphType: selectedGraph,
+                date: date
             }),
 
         }
