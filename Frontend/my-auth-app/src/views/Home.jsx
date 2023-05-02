@@ -109,32 +109,7 @@ function Home() {
                     </div>
                 })
             }
-                {/*
-                <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
-                    <div className='col col-4'></div>
-                    <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
-                    <div className='col col-4'>
-                        <button className='my-1 mx-1'>Consult</button>
-                        <button className='my-1 mx-1'>Delete</button>
-                    </div>
-                </div>
-                <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
-                    <div className='col col-4'></div>
-                    <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
-                    <div className='col col-4'>
-                        <button className='my-1 mx-1'>Consult</button>
-                        <button className='my-1 mx-1'>Delete</button>
-                    </div>
-                </div>
-                <div className='row my-2 mx-2' style={{backgroundColor: 'white'}}>
-                    <div className='col col-4'></div>
-                    <div className='col col-4 d-flex align-items-center justify-content-center'>Hola</div>
-                    <div className='col col-4'>
-                        <button className='my-1 mx-1'>Consult</button>
-                        <button className='my-1 mx-1'>Delete</button>
-                    </div>
-                </div>
-                */}
+                
 
             <button className='btn btn-success my-2' onClick={handleLogout}>
                 Logout
