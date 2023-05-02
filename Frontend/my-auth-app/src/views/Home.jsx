@@ -34,11 +34,6 @@ function Home() {
         }
         
         async function fetchGraphs() {
-<<<<<<< HEAD
-            const decodedToken = jwt_decode(token);
-            console.log('decodedToken: ', decodedToken);
-            const url = 'http://localhost:8080/files/graphs/' + `?user_id=${decodedToken.userId}`;
-=======
             const url = 'http://localhost:8080/file/graphs' + `?user_id=${decodedToken.userId}`;
             const options = {
                 method: 'POST',
@@ -47,7 +42,6 @@ function Home() {
                     'authorization': token
                 }
             }
->>>>>>> 8e02b7ed3e4bdf8e24d7d5ed71bce8bca0f9d787
       
             const response = await fetch(url, options);
             if (response.status == 200) {
