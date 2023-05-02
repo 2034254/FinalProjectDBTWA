@@ -1,6 +1,6 @@
 import React from 'react'
 
-function GraphSummary(title) {
+function GraphSummary({title}) {
 
   return (
     /*<div className="card border border-3 border-dark p-1">
