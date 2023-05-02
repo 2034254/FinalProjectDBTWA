@@ -10,15 +10,17 @@ function Home() {
     const [username, setUserName] = useState(null);
     const navigate = useNavigate();
 
+    //const [decodedToken, setDecodedToken] = useState('');
+    const token = localStorage.getItem('token');
+    const decodedToken = jwt_decode(token);
+
     // On component load -> check auth
     useEffect(() => {
         // Verify auth
-        const token = localStorage.getItem('token');
         if(!token) {
             navigate('/login');
             return
         } try {
-            const decodedToken = jwt_decode(token);
             const currentTime = Date.now() / 1000;
             if (decodedToken.exp < currentTime) {
                 navigate('/login');
@@ -32,14 +34,26 @@ function Home() {
         }
         
         async function fetchGraphs() {
+<<<<<<< HEAD
             const decodedToken = jwt_decode(token);
             console.log('decodedToken: ', decodedToken);
             const url = 'http://localhost:8080/files/graphs/' + `?user_id=${decodedToken.userId}`;
+=======
+            const url = 'http://localhost:8080/file/graphs' + `?user_id=${decodedToken.userId}`;
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': token
+                }
+            }
+>>>>>>> 8e02b7ed3e4bdf8e24d7d5ed71bce8bca0f9d787
       
-            const response = await fetch(url);
+            const response = await fetch(url, options);
             if (response.status == 200) {
               const data = await response.json();
               setGraph(data.documents);
+              console.log(graph);
             }
           }
 
@@ -95,6 +109,7 @@ function Home() {
             </div> 
             {
                 graph.map((graphData, index) => {
+                    console.log(graphData)
                     return <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}} key={index}>
                         <GraphSummary title={graphData.name} />
                     </div>

@@ -4,6 +4,7 @@ const jwt_decode = require('jwt-decode');
 const path = require('path');
 const { spawn } = require('child_process');
 const { client } = require('../database/database.js');
+const { cursorTo } = require('readline');
 
 const router = express.Router();
 
@@ -55,13 +56,17 @@ router.post('/save', async (req, res) => {
 });
 
 router.post('/graphs', async (req, res) => {
+	user_id = req.query.user_id;
 
-graphCollection.find({user_id: req.query.user_id})
-const documents = await cursor.toArray();
-console.log('documents: ', documents);
-res.send({ documents });
+	cursor = graphCollection.find({userId: user_id});
 
-})
+	const documents = await cursor.toArray();
+
+	res.status(200).send({
+		message: 'All good.',
+		documents
+	})
+});
 
 
 module.exports = router;
