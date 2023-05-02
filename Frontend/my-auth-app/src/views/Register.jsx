@@ -82,14 +82,16 @@ function Register() {
                 <form onSubmit={handleSubmit}>
                     <div className='row g-3 justify-content-center'>
                         <div className='col-auto'>
-                            <label className='form-label' htmlFor="username">Username:</label>
-                            <input className='form-control' type="username" id="username" required onChange={(event) => handleInputChange('username', event.target.value)}/>
+                            <br />    
+                                <label className='form-label' htmlFor="username">Username:</label>
+                                <input className='form-control' type="username" id="username" required onChange={(event) => handleInputChange('username', event.target.value)}/>
                         </div>
                     </div>
                     <div className='row g-3 justify-content-center'>
                         <div className='col-auto'>
-                            <label className='form-label' htmlFor="email">Email:</label>
-                            <input className='form-control' type="email" id="email" required onChange={(event) => handleInputChange('email', event.target.value)}/>
+                            <br />
+                                <label className='form-label' htmlFor="email">Email:</label>
+                                <input className='form-control' type="email" id="email" required onChange={(event) => handleInputChange('email', event.target.value)}/>
                         </div>
                     </div>
                     <div className='row g-3 justify-content-center'>
