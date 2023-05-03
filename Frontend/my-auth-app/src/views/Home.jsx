@@ -62,16 +62,28 @@ function Home() {
 
     return(
         <div>
-            <h1>Home</h1>
-            Welcome {username}. You are logged in!
+            <div className='container-fluid'>
+                <h1>Home</h1>
+                <p>Welcome {username}. You are logged in!</p>
+                
+                <div className="row">
+                    <div className="col-3"></div>
+                    <div className="col-3 align-right">
+                        <a href="/graph">
+                            <button className="btn btn-success my-2">
+                                Explore Graphs
+                            </button>
+                        </a>
+                    </div>
+                    <div className="col-3 text-right">
+                        <button className="btn btn-success my-2" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
+                    <div className="col-3"></div>
+                </div>
+            </div>
             
-            <div> 
-                <Link to='/graph'>
-                    <button className='btn btn-success my-2'>
-                        Graph
-                    </button>
-                </Link>   
-            </div> 
             {
                 graph.map((graphData, index) => {
                     return <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}} id={index} key={index}>
@@ -79,12 +91,7 @@ function Home() {
                     </div>
                 })
             }
-                
-
-            <button className='btn btn-success my-2' onClick={handleLogout}>
-                Logout
-            </button>
-            </div>
+        </div>
     )
 }
 
