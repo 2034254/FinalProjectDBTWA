@@ -47,7 +47,6 @@ function Home() {
             if (response.status == 200) {
               const data = await response.json();
               setGraph(data.documents);
-              console.log(graph);
             }
           }
 
@@ -103,7 +102,6 @@ function Home() {
             </div> 
             {
                 graph.map((graphData, index) => {
-                    console.log(graphData)
                     return <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}} id={index} key={index}>
                         <GraphSummary title={graphData.name} graphId={graphData._id} graphType={graphData.graphType} countries={graphData.countries}/>
                     </div>

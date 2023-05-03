@@ -22,7 +22,7 @@ function GraphSummary({title,graphId,graphType,countries}) {
         
         if (response.status == 200) {
             
-            send('deleted')
+            location.reload();
         }
     }
 
