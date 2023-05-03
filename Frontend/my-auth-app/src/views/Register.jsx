@@ -8,7 +8,7 @@ import greenLogo2 from '../assets/greenLab2.jpg';
 import './Register.css';
 const toastOptions = {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -49,6 +49,9 @@ function Register() {
 
         if (responseBody.message === 'Success.') {
             toast.success(responseBody.message, toastOptions);
+            setTimeout(() => {
+                navigate('/login') //navigate to home after after 2 seconds
+            }, 2000)
         } else {
             toast.error(responseBody.message, toastOptions);
         }
