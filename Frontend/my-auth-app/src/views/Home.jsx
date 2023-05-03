@@ -60,34 +60,6 @@ function Home() {
     }
 
 
-    const handleSave = async (e) => {
-        e.preventDefault();
-    
-        const loginURL = 'http://localhost:8080/file/file';
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': localStorage.getItem('token')
-            },
-            body: JSON.stringify({
-                countries: selectedCountries,
-                graphType: selectedGraph,
-            }),
-    
-        }
-        const response = await fetch(loginURL, options);
-        console.log('response.status: ', response.status);
-    
-        if (response.status == 200) {
-            const blob = await response.blob();
-            const imgUrl = URL.createObjectURL(blob);
-            //console.log('imgUrl: ', imgUrl);
-    
-            // Open the image in a new tab
-            window.open(imgUrl);
-        }
-    }
 
     return(
         <div>
