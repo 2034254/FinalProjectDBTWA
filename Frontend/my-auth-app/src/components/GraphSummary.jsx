@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import "./GraphSummary.css";
 
 function GraphSummary({title,graphId,graphType,countries}) {
@@ -21,19 +22,23 @@ function GraphSummary({title,graphId,graphType,countries}) {
         
         if (response.status == 200) {
             
-            send('deleted')
+            location.reload();
         }
     }
 
-
+    const handleConsult = async (e) => {
+        e.preventDefault();
+        const query = `?graphType=${graphType}&countries=${countries.join(',')}`;
+        const url = `/Graph${query}`;
+        window.location.href = url;
+    }
 
   return (
  
     <div className='row my-2' style={{backgroundColor: 'white'}}>
         <div className='p-1 col col-12 col-sm-12 col-md-9 d-flex align-items-center '>{title}</div>
         <div className='p-1 col col-12 col-sm-12 col-md-3 flex-column flex-sm-row'>
-            <button onClick={{/*    LINK TO GRAPH PAGE WITH A QUERY THAT HOLDS GRAPHTYPE AND COUNTIES file/grahps?graphType=${graphType}&countries=${countries}
-         */}} className='my-1 mx-1'>Consult</button>
+            <button onClick={handleConsult} className='my-1 mx-1'>Consult</button>
             <button onClick={handleDelete} className='my-1 mx-1'>Delete</button>
         </div>
     </div>
