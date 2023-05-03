@@ -103,9 +103,9 @@ function Home() {
             </div> 
             {
                 graph.map((graphData, index) => {
-                    console.log(index)
+                    console.log(graphData)
                     return <div className='container-fluid justify-content-center' style={{backgroundColor: 'grey', width: '60%'}} id={index} key={index}>
-                        <GraphSummary title={graphData.name} graphId={graphData._id} />
+                        <GraphSummary title={graphData.name} graphId={graphData._id} graphType={graphData.graphType} countries={graphData.countries}/>
                     </div>
                 })
             }

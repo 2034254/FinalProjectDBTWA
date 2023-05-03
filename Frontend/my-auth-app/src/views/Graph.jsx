@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import "./Graph.css";
@@ -44,6 +44,8 @@ function Graph() {
   // }, [selectedGraph, selectedCountries]);
 
   useEffect(() => {
+
+    // useSearchParams()
     // Verify auth
     const token = localStorage.getItem("token");
     if (!token) {
