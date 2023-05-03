@@ -1,0 +1,16 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .row > .col:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .row > .col:last-child > button {
+  flex-basis: 100%;
+  margin-top: 5px;
+}
