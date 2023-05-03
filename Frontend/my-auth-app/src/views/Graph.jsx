@@ -13,11 +13,19 @@ function Graph() {
   const navigate = useNavigate();
   const [firstMenuText, setFirstMenuText] = useState("CO2");
   const [secondMenuText, setSecondMenuText] = useState("Per country");
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   //const [optionsDict, setOptionsDict] = useState({});
-
+  
   useEffect(() => {
+    
+   
+    console.log('useSearchParams: ', searchParams);
     setSelectedGraph("annual_co2_emissions");
+
+    // searchParams.get('countries')
+    console.log('searchParams.get(countries): ', searchParams.get('countries'));
+
   }, []);
 
   const [selectedCountries, setSelectedCountries] = useState([]);
