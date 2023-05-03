@@ -5,6 +5,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 const { client } = require('../database/database.js');
 const { cursorTo } = require('readline');
+const { ObjectId } = require('mongodb');
 
 const router = express.Router();
 
@@ -63,17 +64,27 @@ router.post('/graphs', async (req, res) => {
 	const documents = await cursor.toArray();
 
 	res.status(200).send({
-		message: 'All good.',
+		message: 'Success.',
 		documents
-	})
+	});
 });
 
 router.delete('/delete', async (req, res) => {
-const graph_id = req.query.graph_id
-const result = await graphCollection.deleteOne({ _id: ObjectId(graph_id) });
-console.log(result.deletedCount); // output: 1
+	const graphId = req.query.graph_id;
+	
+	const result = await graphCollection.deleteOne({'_id': new ObjectId(graphId)});
 
-})
-
+	if (result.deletedCount === 1) {
+		res.status(200).send({
+			message: 'Success.',
+			result
+		});
+	} else {
+		res.status(404).send({
+			message: 'Failed.',
+			result
+		});
+	}
+});
 
 module.exports = router;
