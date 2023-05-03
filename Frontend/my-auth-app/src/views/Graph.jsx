@@ -20,7 +20,7 @@ function Graph() {
   const [selectedCountries, setSelectedCountries] = useState([]);
 
   console.log("selectedCountries: ", selectedCountries);
-  const [selectedGraph, setSelectedGraph] = useState("");
+  const [selectedGraph, setSelectedGraph] = useState(searchParams.get('graphType'));
 
   console.log("selectedGraph: ", selectedGraph);
 
@@ -49,14 +49,14 @@ function Graph() {
     async function getGraphQuery() {
 
       try{
-        setSelectedCountries(searchParams.get('countries').split(','))
+        
+        const countries = searchParams.get('countries').split(',')
+                        
         setSelectedGraph(searchParams.get('graphType'))
   
-      }catch(err){
-        console.log(err)
-      }
-
-      const loginURL = "http://localhost:8080/file/file";
+      const loginURL = "http://localhost:8080/file/file"; 
+      console.log('selectedCountries: ', selectedCountries);
+      
       const options = {
         method: "POST",
         headers: {
@@ -64,10 +64,11 @@ function Graph() {
           authorization: localStorage.getItem("token"),
         },
         body: JSON.stringify({
-          countries: selectedCountries,
+          countries: countries,
           graphType: selectedGraph,
         }),
       };
+      console.log('body: ', options);
       const response = await fetch(loginURL, options);
       console.log("response.status: ", response.status);
 
@@ -80,7 +81,11 @@ function Graph() {
         img.src = imgUrl;
         setImage(imgUrl);
       }
+    }catch(err){
+      console.log(err)
     }
+  }
+
     getGraphQuery()
   }
     , [searchParams]);
