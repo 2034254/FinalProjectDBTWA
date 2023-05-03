@@ -68,5 +68,12 @@ router.post('/graphs', async (req, res) => {
 	})
 });
 
+router.delete('/delete', async (req, res) => {
+const graph_id = req.query.graph_id
+const result = await graphCollection.deleteOne({ _id: ObjectId(graph_id) });
+console.log(result.deletedCount); // output: 1
+
+})
+
 
 module.exports = router;
