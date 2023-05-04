@@ -44,7 +44,38 @@ function Graph() {
 
   useEffect(() => {
    
+    async function activateCheckboxesFromQuery() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const countriesParam = urlParams.get('countries');
+    
+      if (countriesParam) {
+        const checkboxes = document.querySelectorAll("input[type='checkbox']");
+        const countriesArr = countriesParam.split(',');
+    
+        checkboxes.forEach(checkbox => {
+          if (countriesArr.includes(checkbox.value)) {
+            checkbox.checked = true;
+          }
+        });
+      }
+    }
 
+    // Still not working
+    async function activateDropDownFromQuery() {
+      const firstDropdown = document.getElementById("dropdown-basic");
+      const secondDropdown = document.getElementById("dropdown-basic2");
+      const worldCheckbox = document.getElementById("flexCheckDefault");
+      if (queryParams.graphType) {
+        const selectedGraphType = queryParams.graphType;
+        handleFirstMenuText(selectedGraphType, secondDropdown, worldCheckbox);
+        handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
+      } else {
+        const selectedGraphType = "annual_co2_emissions";
+        handleFirstMenuText(selectedGraphType, secondDropdown, worldCheckbox);
+        handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
+      }
+
+    }
 
     async function getGraphQuery() {
 
@@ -87,6 +118,9 @@ function Graph() {
   }
 
     getGraphQuery()
+    activateCheckboxesFromQuery()
+    // Still not working
+    activateDropDownFromQuery()
   }
     , [searchParams]);
 
