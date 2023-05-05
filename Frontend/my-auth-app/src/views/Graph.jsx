@@ -28,30 +28,31 @@ function Graph() {
   const [isDisabled2, setIsDisabled2] = useState(false);
   const [checked, setChecked] = useState(false);
   console.log('searchParams: ', searchParams);
-  
-  if(searchParams.values.length === '0'){
+
+  if (searchParams.values.length === '0') {
+    useEffect(() => {
+
+
+      console.log('useSearchParams: ', searchParams);
+      setSelectedGraph("annual_co2_emissions");
+
+      // searchParams.get('countries')
+      console.log('searchParams.get(countries): ', searchParams.get('countries'));
+
+    }, []);
+  }
+
+
   useEffect(() => {
 
-
-    console.log('useSearchParams: ', searchParams);
-    setSelectedGraph("annual_co2_emissions");
-
-    // searchParams.get('countries')
-    console.log('searchParams.get(countries): ', searchParams.get('countries'));
-
-  }, []);}
-
-
-  useEffect(() => {
-   
     async function activateCheckboxesFromQuery() {
       const urlParams = new URLSearchParams(window.location.search);
       const countriesParam = urlParams.get('countries');
-    
+
       if (countriesParam) {
         const checkboxes = document.querySelectorAll("input[type='checkbox']");
         const countriesArr = countriesParam.split(',');
-    
+
         checkboxes.forEach(checkbox => {
           if (countriesArr.includes(checkbox.value)) {
             checkbox.checked = true;
@@ -60,71 +61,118 @@ function Graph() {
       }
     }
 
-    /* Still not working
+
     async function activateDropDownFromQuery() {
-      const firstDropdown = document.getElementById("dropdown-basic");
-      const secondDropdown = document.getElementById("dropdown-basic2");
-      const worldCheckbox = document.getElementById("flexCheckDefault");
-      if (queryParams.graphType) {
-        const selectedGraphType = queryParams.graphType;
-        handleFirstMenuText(selectedGraphType, secondDropdown, worldCheckbox);
-        handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
-      } else {
-        const selectedGraphType = "annual_co2_emissions";
-        handleFirstMenuText(selectedGraphType, secondDropdown, worldCheckbox);
-        handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryParams = urlParams.get('graphType');
+      console.log('queryParams: ', queryParams);
+
+
+      if (queryParams == "annual_methane_emissions") {
+
+
+        setFirstMenuText("Methane");
+        setSelectedGraph("annual_methane_emissions");
+        disableSecondMenu();
+      } else if (queryParams == "annual_nitrous_oxide_emissions") {
+        setFirstMenuText("Nitrous Oxide");
+        disableSecondMenu();
+        setSelectedGraph("annual_nitrous_oxide_emissions");
+      } else if (queryParams == "annual_greenhouse_gas_emissions") {
+        setFirstMenuText("Greenhouse Gas");
+        disableSecondMenu();
+        setSelectedGraph("annual_greenhouse_gas_emissions")
+      } else if (queryParams == "per_capita_co2") {
+        setSecondMenuText("Per capita");
+        setSelectedGraph("per_capita_co2");
+        disableFirstMenu();
+
+      } else if (queryParams == "per_gdp_co2") {
+        setSecondMenuText("Per $ of GDP");
+        setSelectedGraph("per_gdp_co2");
+        disableFirstMenu();
+      } else if (queryParams == "co2_from_greenhouse_emissions") {
+        setSecondMenuText("CO2 amount in GHG");
+        setSelectedGraph("co2_from_greenhouse_emissions");
+        disableFirstMenu();
+      } else if (queryParams == "c02_emmissions_worldtotal") {
+        setChecked(true)
+        setSecondMenuText("Per Country")
+        setIsDisabled(true);
+        setIsDisabled2(true);
+        setSelectedGraph("c02_emmissions_worldtotal");
+
       }
-
-    }*/
-
-    async function getGraphQuery() {
-
-      try{
-        
-        const countries = searchParams.get('countries').split(',')
-                        
-        setSelectedGraph(searchParams.get('graphType'))
-  
-      const loginURL = "http://localhost:8080/file/file"; 
-      console.log('selectedCountries: ', selectedCountries);
-      
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          countries: countries,
-          graphType: selectedGraph,
-        }),
-      };
-      console.log('body: ', options);
-      const response = await fetch(loginURL, options);
-      console.log("response.status: ", response.status);
-
-      if (response.status == 200) {
-        const blob = await response.blob();
-        const imgUrl = URL.createObjectURL(blob);
-        //console.log('imgUrl: ', imgUrl);
-
-        const img = new Image();
-        img.src = imgUrl;
-        setImage(imgUrl);
-      }
-    }catch(err){
-      console.log(err)
     }
-  }
 
-    getGraphQuery()
-    activateCheckboxesFromQuery()
-    // Still not working
-    /*activateDropDownFromQuery()*/
-  }
+
+
+      /* Still not working
+      async function activateDropDownFromQuery() {
+        const firstDropdown = document.getElementById("dropdown-basic");
+        const secondDropdown = document.getElementById("dropdown-basic2");
+        const worldCheckbox = document.getElementById("flexCheckDefault");
+        if (queryParams.graphType) {
+          const selectedGraphType = queryParams.graphType;
+          handleFirstMenuText(selectedGraphType, secondDropdown, worldCheckbox);
+          handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
+        } else {
+          const selectedGraphType = "annual_co2_emissions";
+          handleFirstMenuText(selectedGraphType, secondDropdown, worldCheckbox);
+          handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
+        }
+  
+      }*/
+
+      async function getGraphQuery() {
+
+        try {
+
+          const countries = searchParams.get('countries').split(',')
+
+          setSelectedGraph(searchParams.get('graphType'))
+
+          const loginURL = "http://localhost:8080/file/file";
+          console.log('selectedCountries: ', selectedCountries);
+
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+              countries: countries,
+              graphType: selectedGraph,
+            }),
+          };
+          console.log('body: ', options);
+          const response = await fetch(loginURL, options);
+          console.log("response.status: ", response.status);
+
+          if (response.status == 200) {
+            const blob = await response.blob();
+            const imgUrl = URL.createObjectURL(blob);
+            //console.log('imgUrl: ', imgUrl);
+
+            const img = new Image();
+            img.src = imgUrl;
+            setImage(imgUrl);
+          }
+        } catch (err) {
+          console.log(err)
+        }
+      }
+
+      getGraphQuery()
+      activateCheckboxesFromQuery()
+      // Still not working
+      activateDropDownFromQuery()
+    }
     , [searchParams]);
 
-  
+
 
   useEffect(() => {
 
