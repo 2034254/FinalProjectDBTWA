@@ -60,7 +60,7 @@ function Graph() {
       }
     }
 
-    // Still not working
+    /* Still not working
     async function activateDropDownFromQuery() {
       const firstDropdown = document.getElementById("dropdown-basic");
       const secondDropdown = document.getElementById("dropdown-basic2");
@@ -75,7 +75,7 @@ function Graph() {
         handleSecondMenuText(selectedGraphType, firstDropdown, worldCheckbox);
       }
 
-    }
+    }*/
 
     async function getGraphQuery() {
 
@@ -120,7 +120,7 @@ function Graph() {
     getGraphQuery()
     activateCheckboxesFromQuery()
     // Still not working
-    activateDropDownFromQuery()
+    /*activateDropDownFromQuery()*/
   }
     , [searchParams]);
 
