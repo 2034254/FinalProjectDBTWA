@@ -12,16 +12,19 @@ function Home() {
     const navigate = useNavigate();
 
     //const [decodedToken, setDecodedToken] = useState('');
-    const token = localStorage.getItem('token');
-    const decodedToken = jwt_decode(token);
+    
+    
 
     // On component load -> check auth
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log('Hello!')
         // Verify auth
         if(!token) {
             navigate('/login');
             return
         } try {
+            const decodedToken = jwt_decode(token);
             const currentTime = Date.now() / 1000;
             if (decodedToken.exp < currentTime) {
                 navigate('/login');
