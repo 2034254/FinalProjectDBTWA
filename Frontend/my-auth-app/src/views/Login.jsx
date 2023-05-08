@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import 'react-toastify/dist/ReactToastify.css';
 import greenLogo from '../assets/greenLab.jpg';
 import './Login.css';
+import { serverUrl } from '../constansts';
 
 function Login() {
 
@@ -45,7 +46,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const loginURL = 'http://localhost:8080/auth/login';
+        const loginURL = serverUrl + '/auth/login';
         const options = {
             method: 'POST',
             headers: {

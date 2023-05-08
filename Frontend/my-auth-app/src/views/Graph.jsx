@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import "./Graph.css";
 import { Dropdown, DropdownButton } from "react-bootstrap";
+import { serverUrl } from "../constansts";
 
 function Graph() {
   const [username, setUserName] = useState(null);
@@ -133,7 +134,7 @@ function Graph() {
 
           setSelectedGraph(searchParams.get('graphType'))
 
-          const loginURL = "http://localhost:8080/file/file";
+          const loginURL = serverUrl + '/file/file';
           console.log('selectedCountries: ', selectedCountries);
 
           const options = {
@@ -299,7 +300,7 @@ function Graph() {
   const handleImage = async (e) => {
     e.preventDefault();
 
-    const loginURL = "http://localhost:8080/file/file";
+    const loginURL = serverUrl + '/file/file';
     const options = {
       method: "POST",
       headers: {
@@ -351,7 +352,7 @@ function Graph() {
       return;
     }
 
-    const saveUrl = "http://localhost:8080/file/save";
+    const saveUrl = serverUrl + '/file/save';
     const options = {
       method: "POST",
       headers: {

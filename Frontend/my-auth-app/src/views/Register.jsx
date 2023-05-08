@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import 'react-toastify/dist/ReactToastify.css';
 import greenLogo2 from '../assets/greenLab2.jpg';
 import './Register.css';
+import { serverUrl } from '../constansts';
 const toastOptions = {
     position: "top-right",
     autoClose: 1000,
@@ -16,6 +17,8 @@ const toastOptions = {
     progress: undefined,
     theme: "dark",
 }
+
+
 
 function Register() {
     //onClick={handleFormToggle}
@@ -36,7 +39,8 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const registerURL = 'http://localhost:8080/auth/register';
+        const registerURL = serverUrl + '/auth/register';
+        console.log(registerURL);
         const options = {
             method: 'POST',
             headers: {

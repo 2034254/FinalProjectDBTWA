@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './home.css';
 import GraphSummary from '../components/GraphSummary'
+import { serverUrl } from '../constansts';
 
 function Home() {
 
@@ -11,11 +12,14 @@ function Home() {
     const navigate = useNavigate();
 
     //const [decodedToken, setDecodedToken] = useState('');
-    const token = localStorage.getItem('token');
-    const decodedToken = jwt_decode(token);
+    
+    
 
     // On component load -> check auth
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwt_decode(token);
+        console.log('Hello!')
         // Verify auth
         if(!token) {
             navigate('/login');
@@ -34,7 +38,7 @@ function Home() {
         }
         
         async function fetchGraphs() {
-            const url = 'http://localhost:8080/file/graphs' + `?user_id=${decodedToken.userId}`;
+            const url = serverUrl + '/file/graphs' + `?user_id=${decodedToken.userId}`;
             const options = {
                 method: 'POST',
                 headers: {
