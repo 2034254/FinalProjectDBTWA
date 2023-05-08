@@ -1,1 +1,1 @@
-export const serverUrl = 'https://587b-205-236-4-254.ngrok-free.app'
+export const serverUrl = 'http://localhost:8080/'
