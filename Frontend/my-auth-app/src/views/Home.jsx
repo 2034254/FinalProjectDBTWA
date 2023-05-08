@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './home.css';
 import GraphSummary from '../components/GraphSummary'
+import { serverUrl } from '../constansts';
 
 function Home() {
 
@@ -34,7 +35,7 @@ function Home() {
         }
         
         async function fetchGraphs() {
-            const url = 'http://localhost:8080/file/graphs' + `?user_id=${decodedToken.userId}`;
+            const url = serverUrl + '/file/graphs' + `?user_id=${decodedToken.userId}`;
             const options = {
                 method: 'POST',
                 headers: {

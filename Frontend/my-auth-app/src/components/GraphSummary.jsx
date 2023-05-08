@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { serverUrl } from '../constansts';
 import "./GraphSummary.css";
 
 function GraphSummary({title,graphId,graphType,countries}) {
@@ -9,7 +10,7 @@ function GraphSummary({title,graphId,graphType,countries}) {
 
         const token = localStorage.getItem('token');
 
-        const url = 'http://localhost:8080/file/delete' + `?graph_id=${graphId}`;
+        const url = serverUrl + '/file/delete' + `?graph_id=${graphId}`;
         const options = {
             method: 'DELETE',
             headers: {
