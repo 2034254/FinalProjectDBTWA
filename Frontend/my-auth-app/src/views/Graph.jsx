@@ -6,6 +6,7 @@ import { useState } from "react";
 import "./Graph.css";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import { serverUrl } from "../constansts";
+import greenLogo4 from '../assets/greenLab4.jpg';
 
 function Graph() {
   const [username, setUserName] = useState(null);
@@ -388,9 +389,11 @@ function Graph() {
 
   return (
     <div style={{ width: "100%" }}>
-      <h1>Graph</h1>
-
       <div className="container-fluid">
+        <span className='align-self-center' >
+          <img src={greenLogo4} alt="Green Lab4" className='' />
+        </span>
+        <h1>Graph</h1>
         <div className="row my-2">
           <div className="p-1 col col-12 col-sm-12 col-md-4 ">
             <Dropdown onSelect={handleFirstMenuText}>

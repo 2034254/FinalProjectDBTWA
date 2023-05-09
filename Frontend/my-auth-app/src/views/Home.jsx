@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import './home.css';
 import GraphSummary from '../components/GraphSummary'
 import { serverUrl } from '../constansts';
+import greenLogo3 from '../assets/greenLab3.jpg';
 
 function Home() {
 
@@ -67,9 +68,11 @@ function Home() {
     return(
         <div>
             <div className='container-fluid'>
+                <span className='align-self-center' >
+                    <img src={greenLogo3} alt="Green Lab3" className='' />
+                </span>
                 <h1>Home</h1>
                 <p>Welcome {username}. You are logged in!</p>
-                
                 <div className="row">
                     <div className="col-3"></div>
                     <div className="col-3 align-right">
